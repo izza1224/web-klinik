@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klinik Sehat Mandiri – Layanan Kesehatan & Home Care Profesional</title>
+  <meta name="description" content="Klinik Sehat Mandiri menyediakan layanan kesehatan klinik dan home care profesional. Perawat berlisensi datang ke rumah Anda." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#beranda" class="nav-logo">
+        <div class="logo-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="#1a56a0"/>
+            <path d="M16 7v18M7 16h18" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">Klinik Sehat Mandiri</span>
+          <span class="logo-tagline">Home Care &amp; Klinik</span>
+        </div>
+      </a>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#beranda" class="nav-link">Beranda</a></li>
+        <li><a href="#layanan" class="nav-link">Layanan</a></li>
+        <li><a href="#tentang" class="nav-link">Tentang Kami</a></li>
+        <li><a href="#galeri" class="nav-link">Galeri &amp; Testimoni</a></li>
+        <li><a href="#lokasi" class="nav-link">Lokasi</a></li>
+      </ul>
+
+      <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20klinik" 
+         class="nav-cta" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Chat WhatsApp
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="beranda">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80" 
+           alt="Layanan Home Care Profesional" class="hero-img" loading="eager" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content fade-up">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Tersedia 7 Hari Seminggu
+      </div>
+      <h1 class="hero-title">Layanan Kesehatan<br/><span class="hero-accent">Profesional & Terpercaya</span></h1>
+      <p class="hero-sub">Perawat bersertifikat kami siap datang ke rumah Anda atau melayani di klinik — nyaman, aman, dan penuh perhatian.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20menjadwalkan%20kunjungan%20home%20care" 
+           class="btn btn-wa" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Jadwalkan Sekarang
+        </a>
+        <a href="#layanan" class="btn btn-outline">
+          Lihat Layanan
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Pasien Dilayani</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">5★</span><span class="stat-label">Rating Kepuasan</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">3 Thn</span><span class="stat-label">Pengalaman</span></div>
+      </div>
+    </div>
+    <!-- Floating Info Bar -->
+    <div class="info-bar">
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <h3>Perawat ke Rumah</h3>
+          <p>Layanan home care langsung ke pintu Anda</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <h3>Kunjungan Klinik</h3>
+          <p>Fasilitas klinik nyaman & steril tersedia</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <h3>Tenaga Bersertifikat</h3>
+          <p>STR & SIPP aktif, terlatih & berpengalaman</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LAYANAN SECTION ===== -->
+  <section class="services" id="layanan">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-badge">Layanan Kami</span>
+        <h2 class="section-title">Kami Hadir untuk Membantu<br/>Kesehatan Anda</h2>
+        <p class="section-desc">Semua layanan tersedia di klinik maupun home visit ke rumah Anda, ditangani oleh tenaga medis profesional berlisensi.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- 1. Perawatan Luka -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=75" alt="Perawatan Luka" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Perawatan Luka</h3>
+            <p class="service-desc">Pembersihan dan perawatan luka pasca operasi, luka diabetes, luka bakar, dan luka kronis menggunakan teknik modern wound care.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Perawatan%20Luka" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Khitan Modern -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1631563019676-dade0dbdb8e8?w=600&q=75" alt="Khitan Modern" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge teal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Khitan Modern</h3>
+            <p class="service-desc">Khitan dengan metode modern (klem/laser), cepat, minim nyeri, dan aman untuk anak-anak maupun dewasa, oleh tenaga ahli berpengalaman.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Khitan%20Modern" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Pemasangan Infus -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=75" alt="Pemasangan Infus" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Pemasangan Infus</h3>
+            <p class="service-desc">Terapi cairan intravena untuk dehidrasi, vitamin drip, atau kebutuhan medis lainnya, langsung di klinik atau di rumah Anda.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Pemasangan%20Infus" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Pemasangan NGT -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&q=75" alt="Pemasangan NGT" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge teal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Pemasangan NGT</h3>
+            <p class="service-desc">Pemasangan selang nasogastrik (NGT) untuk pemberian nutrisi atau obat pada pasien yang tidak dapat menelan, dilakukan dengan prosedur steril dan hati-hati.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Pemasangan%20NGT" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Pemasangan Kateter -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=75" alt="Pemasangan Kateter" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Pemasangan Kateter</h3>
+            <p class="service-desc">Pemasangan dan perawatan kateter urin untuk pasien dengan gangguan berkemih, dilakukan dengan teknik steril untuk mencegah infeksi.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Pemasangan%20Kateter" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. Terapi Bekam -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=75" alt="Terapi Bekam" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge teal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Terapi Bekam</h3>
+            <p class="service-desc">Bekam basah dan kering untuk melancarkan peredaran darah, meredakan nyeri otot, dan meningkatkan vitalitas, dilakukan oleh terapis bersertifikat.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Terapi%20Bekam" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. Terapi Inframerah -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=75" alt="Terapi Inframerah" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Terapi Inframerah</h3>
+            <p class="service-desc">Fisioterapi menggunakan sinar inframerah untuk meredakan nyeri sendi, otot tegang, dan mempercepat pemulihan cedera ringan.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Terapi%20Inframerah" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 8. Cek Lab Mini -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&q=75" alt="Cek Lab Mini" loading="lazy" />
+            <div class="service-img-overlay"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-icon-badge teal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11l3 3 3-3V3M9 14H5a2 2 0 01-2-2V5"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Cek Lab Mini</h3>
+            <p class="service-desc">Pemeriksaan laboratorium dasar: gula darah, kolesterol, asam urat, hemoglobin, dan lainnya. Hasil cepat, harga terjangkau, langsung di klinik.</p>
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20tanya%20tentang%20layanan%20Cek%20Lab%20Mini" 
+               class="btn-service" target="_blank" rel="noopener">
+              Tanya via WA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TENTANG KAMI ===== -->
+  <section class="about" id="tentang">
+    <div class="container">
+      <div class="about-grid">
+        <!-- Kolom kiri: Foto Perawat -->
+        <div class="about-img-col fade-up">
+          <div class="about-img-wrap">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=700&q=80" 
+                 alt="Perawat Profesional" class="about-main-img" loading="lazy" />
+            <div class="about-badge-card">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a56a0" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <div>
+                <strong>STR &amp; SIPP Aktif</strong>
+                <span>Terdaftar Resmi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom kanan: Teks -->
+        <div class="about-text-col fade-up">
+          <span class="section-badge">Tentang Kami</span>
+          <h2 class="section-title">Kami Merawat dengan<br/>Hati &amp; Keahlian</h2>
+          <p class="about-intro">Halo, saya <strong>Ns. Sari Dewi, S.Kep</strong> — perawat dengan pengalaman lebih dari 8 tahun di bidang keperawatan klinis dan komunitas. Klinik Sehat Mandiri didirikan dengan satu tujuan: memberikan layanan kesehatan berkualitas tinggi yang terasa hangat dan personal.</p>
+
+          <div class="about-values">
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <p>Lulusan Profesi Ners dari Universitas terkemuka</p>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <p>Tersertifikasi Wound Care, BHD, dan Phlebotomy</p>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <p>Pengalaman di RS rujukan provinsi selama 5 tahun</p>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <p>Komitmen pada sterilitas dan prosedur standar</p>
+            </div>
+          </div>
+
+          <blockquote class="about-quote">
+            "Setiap pasien adalah prioritas. Kami hadir bukan hanya untuk mengobati, tetapi untuk menemani perjalanan kesembuhan Anda dengan penuh empati."
+          </blockquote>
+
+          <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20berkonsultasi%20dengan%20Ns.%20Sari%20Dewi" 
+             class="btn btn-primary" target="_blank" rel="noopener">
+            Konsultasi Langsung
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Legalitas & Sertifikasi -->
+      <div class="cert-section fade-up">
+        <div class="cert-header">
+          <div class="cert-title-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a56a0" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <div>
+              <h3>Legalitas &amp; Sertifikasi</h3>
+              <p>Klik foto untuk melihat lebih jelas</p>
+            </div>
+          </div>
+        </div>
+        <div class="cert-grid">
+          <div class="cert-card" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=70" 
+                 alt="STR - Surat Tanda Registrasi" data-full="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=90" loading="lazy" />
+            <div class="cert-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              STR (Surat Tanda Registrasi)
+            </div>
+          </div>
+          <div class="cert-card" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1543393716-375f47996a77?w=400&q=70" 
+                 alt="SIPP - Surat Izin Praktik Perawat" data-full="https://images.unsplash.com/photo-1543393716-375f47996a77?w=1200&q=90" loading="lazy" />
+            <div class="cert-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              SIPP (Izin Praktik Perawat)
+            </div>
+          </div>
+          <div class="cert-card" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?w=400&q=70" 
+                 alt="Sertifikat Wound Care" data-full="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?w=1200&q=90" loading="lazy" />
+            <div class="cert-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              Sertifikat Wound Care
+            </div>
+          </div>
+          <div class="cert-card" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&q=70" 
+                 alt="Sertifikat BHD" data-full="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=90" loading="lazy" />
+            <div class="cert-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              Sertifikat BHD
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Tutup">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <img id="lightboxImg" src="" alt="Sertifikat" onclick="event.stopPropagation()" />
+  </div>
+
+  <!-- ===== GALERI & TESTIMONI ===== -->
+  <section class="testimonials" id="galeri">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-badge">Galeri &amp; Testimoni</span>
+        <h2 class="section-title">Kepercayaan Pasien<br/>adalah Motivasi Kami</h2>
+        <p class="section-desc">Ratusan pasien telah mempercayakan kesehatan mereka kepada kami. Berikut pengalaman mereka.</p>
+      </div>
+
+      <!-- Testimoni -->
+      <div class="testi-grid fade-up">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Alhamdulillah, luka diabetes ayah saya yang sudah lama susah sembuh, dalam 2 minggu perawatan rutin oleh Ns. Sari, kondisinya jauh lebih baik. Perawatnya sabar dan telaten sekali!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">BH</div>
+            <div>
+              <strong>Budi Hartono</strong>
+              <span>Putra Pasien, Perawatan Luka</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Anak saya khitan di sini, prosesnya cepat sekali dan anak tidak terlalu kesakitan. Ruangannya bersih dan steril. Pasca khitan juga dirawat dengan baik, sangat puas!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">RA</div>
+            <div>
+              <strong>Ratna Agustina</strong>
+              <span>Orang Tua Pasien, Khitan Modern</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Minta home visit untuk pasang infus ibu saya yang sedang sakit dan tidak bisa keluar rumah. Perawatnya datang tepat waktu, profesional, dan sangat perhatian. Layanan terbaik!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">DS</div>
+            <div>
+              <strong>Dian Susanti</strong>
+              <span>Keluarga Pasien, Home Care Infus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Galeri Foto Klinik -->
+      <div class="gallery-section fade-up">
+        <h3 class="gallery-title">Suasana Klinik Kami</h3>
+        <div class="gallery-grid">
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=75" 
+                 alt="Ruang Perawatan" data-full="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=90" loading="lazy" />
+            <div class="gallery-overlay"><span>Ruang Perawatan</span></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=75" 
+                 alt="Area Konsultasi" data-full="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=90" loading="lazy" />
+            <div class="gallery-overlay"><span>Area Konsultasi</span></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=600&q=75" 
+                 alt="Ruang Tunggu" data-full="https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=1200&q=90" loading="lazy" />
+            <div class="gallery-overlay"><span>Ruang Tunggu</span></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=75" 
+                 alt="Area Sterilisasi" data-full="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=90" loading="lazy" />
+            <div class="gallery-overlay"><span>Area Sterilisasi</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOKASI & FOOTER ===== -->
+  <section class="location" id="lokasi">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-badge">Lokasi Kami</span>
+        <h2 class="section-title">Temukan &amp; Kunjungi<br/>Klinik Kami</h2>
+      </div>
+
+      <div class="location-grid fade-up">
+        <!-- Info Kontak -->
+        <div class="location-info">
+          <div class="loc-card">
+            <div class="loc-item">
+              <div class="loc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="loc-text">
+                <strong>Alamat</strong>
+                <p>Jl. Kesehatan No. 123, Kel. Sejahtera,<br/>Kec. Makmur, Kota Sehat 12345</p>
+              </div>
+            </div>
+            <div class="loc-item">
+              <div class="loc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="loc-text">
+                <strong>Jam Operasional</strong>
+                <div class="hours">
+                  <div class="hour-row"><span>Senin – Jumat</span><span class="hour-time">08.00 – 17.00</span></div>
+                  <div class="hour-row"><span>Sabtu</span><span class="hour-time">08.00 – 14.00</span></div>
+                  <div class="hour-row"><span>Minggu &amp; Libur</span><span class="hour-time">09.00 – 12.00</span></div>
+                  <div class="hour-row homecare"><span>Home Care</span><span class="hour-time">Sesuai Janji</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="loc-item">
+              <div class="loc-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </div>
+              <div class="loc-text">
+                <strong>Kontak</strong>
+                <p>+62 812-3456-7890</p>
+              </div>
+            </div>
+
+            <div class="loc-socials">
+              <a href="https://wa.me/6281234567890" class="social-btn wa" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                WhatsApp
+              </a>
+              <a href="https://instagram.com/kliniksehatmandiri" class="social-btn ig" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+                Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Maps Embed -->
+        <div class="location-map">
+          <a href="https://maps.google.com/?q=Klinik+Sehat+Mandiri" target="_blank" rel="noopener" class="map-link-overlay" title="Buka di Google Maps"></a>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126748.59609823898!2d106.7765!3d-6.2297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Indonesia!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+            class="maps-iframe"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Lokasi Klinik Sehat Mandiri">
+          </iframe>
+          <a href="https://maps.google.com/?q=Klinik+Sehat+Mandiri" target="_blank" rel="noopener" class="open-maps-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Buka di Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:12px">
+          <div class="logo-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="#1a56a0"/>
+              <path d="M16 7v18M7 16h18" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name" style="color:#fff">Klinik Sehat Mandiri</span>
+            <span class="logo-tagline" style="color:rgba(255,255,255,0.7)">Home Care &amp; Klinik</span>
+          </div>
+        </div>
+        <p class="footer-desc">Layanan kesehatan profesional untuk Anda dan keluarga. Kami hadir dengan sepenuh hati.</p>
+      </div>
+      <div class="footer-links">
+        <strong>Navigasi</strong>
+        <ul>
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#layanan">Layanan</a></li>
+          <li><a href="#tentang">Tentang Kami</a></li>
+          <li><a href="#galeri">Galeri</a></li>
+          <li><a href="#lokasi">Lokasi</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <strong>Layanan Utama</strong>
+        <ul>
+          <li><a href="#layanan">Perawatan Luka</a></li>
+          <li><a href="#layanan">Khitan Modern</a></li>
+          <li><a href="#layanan">Pemasangan Infus</a></li>
+          <li><a href="#layanan">Terapi Bekam</a></li>
+          <li><a href="#layanan">Cek Lab Mini</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <strong>Hubungi Kami</strong>
+        <p>+62 812-3456-7890</p>
+        <p>kliniksehatmandiri@email.com</p>
+        <p style="margin-top:8px;font-size:13px;color:rgba(255,255,255,0.6)">Jl. Kesehatan No.123,<br/>Kota Sehat 12345</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Klinik Sehat Mandiri. Hak cipta dilindungi.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5)">Dibangun dengan ❤️ untuk kesehatan Anda</p>
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING WA BUTTON ===== -->
+  <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20klinik" 
+     class="wa-float" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="wa-float-label">Chat WA</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
