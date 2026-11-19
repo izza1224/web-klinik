@@ -3,8 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import {
   Phone, MapPin, Clock, ShieldCheck, Building2,
   Home as HomeIcon, Award, CheckCircle2, ExternalLink,
-  Menu, X, Sparkles, Star, ChevronRight, Activity, ArrowRight,
-  HeartHandshake
+  Menu, X, Sparkles, Star, ChevronRight, Activity, ArrowRight
 } from "lucide-react";
 import TestimonialMarquee from "@/components/ui/testimonial-marquee";
 
@@ -29,17 +28,19 @@ function useCountUp(target: number, duration = 1800) {
           obs.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
     obs.observe(el);
 
-    // Fallback trigger if element is immediately in viewport on page load
+    // Trigger fallback when visible
     const timer = setTimeout(() => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        setStarted(true);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          setStarted(true);
+        }
       }
-    }, 250);
+    }, 300);
 
     return () => {
       obs.disconnect();
@@ -53,7 +54,6 @@ function useCountUp(target: number, duration = 1800) {
     const step = (ts: number) => {
       if (!start) start = ts;
       const progress = Math.min((ts - start) / duration, 1);
-      // Smooth cubic ease-out
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
       if (progress < 1) {
@@ -95,18 +95,14 @@ const NAV_LINKS = [
 
 export default function PageHome() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [lightbox, setLightbox] = useState<string | null>(null);
   const [activeNav, setActiveNav] = useState("beranda");
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
   const statPatients = useCountUp(500, 2000);
   const statYears = useCountUp(3, 1600);
 
-  const scrolled = scrollY > 60;
-
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
       const sections = ["beranda", "layanan", "tentang", "galeri", "lokasi"];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
@@ -124,77 +120,33 @@ export default function PageHome() {
     <div className="min-h-screen bg-white text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
 
       {/* ============================================================
-          NAVBAR ATAS — Transparan saat di paling atas
+          NAVBAR — SATU DESAIN KONSISTEN & ELEGAN
+          Floating frosted glass pill yang konsisten sebelum & sesudah scroll
           ============================================================ */}
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-        scrolled ? "opacity-0 pointer-events-none -translate-y-full" : "opacity-100 translate-y-0"
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-6">
-            {/* Logo */}
-            <a href="#beranda" className="flex items-center gap-3 shrink-0">
-              <div className="w-10 h-10 bg-white/20 border border-white/30 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg shadow-black/10">
-                <span className="text-white font-black text-2xl leading-none select-none">+</span>
-              </div>
-              <div className="leading-tight">
-                <span className="block font-extrabold text-[17px] text-white tracking-tight">Klinik Sehat Mandiri</span>
-                <span className="block text-[11px] font-semibold text-teal-300 uppercase tracking-widest">Home Care &amp; Klinik</span>
-              </div>
-            </a>
-
-            {/* Nav items */}
-            <div className="hidden md:flex items-center gap-1 bg-white/10 border border-white/15 backdrop-blur-md rounded-full px-3 py-1.5 shadow-sm">
-              {NAV_LINKS.map(({ href, label }) => (
-                <a key={href} href={href}
-                  className="px-4 py-1.5 text-[14px] font-medium text-white/85 hover:text-white hover:bg-white/15 rounded-full transition-all duration-200">
-                  {label}
-                </a>
-              ))}
+      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav className="pointer-events-auto w-full max-w-6xl bg-slate-900/85 hover:bg-slate-900/95 backdrop-blur-xl border border-white/15 rounded-2xl shadow-2xl shadow-black/30 px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-300">
+          
+          {/* Logo Brand */}
+          <a href="#beranda" className="flex items-center gap-3 shrink-0 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-400 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
+              <span className="font-black text-xl leading-none select-none">+</span>
             </div>
-
-            {/* CTA WA */}
-            <a href={waLink("Halo, saya ingin konsultasi layanan klinik.")} target="_blank" rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-0.5">
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span>Chat WhatsApp</span>
-            </a>
-
-            {/* Mobile hamburger */}
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-white hover:bg-white/10 rounded-xl">
-              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ============================================================
-          FLOATING PILL NAVBAR — Muncul saat di-scroll
-          ============================================================ */}
-      <div className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-in-out px-4 ${
-        scrolled ? "translate-y-4 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
-      }`}>
-        <div className="w-full max-w-5xl bg-white/95 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-xl shadow-slate-400/20 px-4 py-2 flex items-center justify-between gap-4">
-          {/* Logo compact */}
-          <a href="#beranda" className="flex items-center gap-2.5 shrink-0">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-teal-600 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20">
-              <span className="text-white font-black text-xl leading-none">+</span>
-            </div>
-            <div className="hidden sm:block leading-tight">
-              <span className="block font-extrabold text-[15px] text-slate-900 tracking-tight">Klinik Sehat Mandiri</span>
-              <span className="block text-[10px] font-semibold text-teal-600 uppercase tracking-widest">Home Care &amp; Klinik</span>
+            <div className="leading-tight">
+              <span className="block font-extrabold text-[16px] text-white tracking-tight">Klinik Sehat Mandiri</span>
+              <span className="block text-[10px] font-semibold text-teal-300 uppercase tracking-widest">Home Care &amp; Klinik</span>
             </div>
           </a>
 
-          {/* Nav Links */}
-          <div className="hidden md:flex items-center bg-slate-100/80 rounded-xl px-1.5 py-1 gap-1">
+          {/* Nav Links Desktop */}
+          <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full px-2 py-1 gap-1 shadow-inner">
             {NAV_LINKS.map(({ href, label }) => {
               const isActive = activeNav === href.replace("#", "");
               return (
                 <a key={href} href={href}
-                  className={`px-3.5 py-1.5 text-[13px] font-semibold rounded-lg transition-all duration-200 ${
+                  className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 ${
                     isActive
-                      ? "bg-white text-blue-700 shadow-sm"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
+                      ? "bg-white/20 text-white shadow-sm"
+                      : "text-slate-300 hover:text-white hover:bg-white/10"
                   }`}>
                   {label}
                 </a>
@@ -202,32 +154,35 @@ export default function PageHome() {
             })}
           </div>
 
-          {/* CTA */}
-          <a href={waLink("Halo, saya ingin konsultasi layanan klinik.")} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-md shadow-emerald-500/20 transition-all hover:-translate-y-0.5 shrink-0">
-            <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            <span>Chat WA</span>
-          </a>
+          {/* Action Button: WhatsApp */}
+          <div className="flex items-center gap-2">
+            <a href={waLink("Halo, saya ingin konsultasi layanan klinik.")}
+              target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-0.5">
+              <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>Chat WhatsApp</span>
+            </a>
 
-          {/* Mobile hamburger */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-1.5 text-slate-600 hover:bg-slate-100 rounded-lg">
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </div>
+            {/* Mobile Hamburger Button */}
+            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-white hover:bg-white/10 rounded-xl">
+              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </nav>
+      </header>
 
-      {/* Mobile dropdown */}
+      {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="fixed top-20 left-4 right-4 z-40 bg-white rounded-2xl border border-slate-200 shadow-2xl p-3">
+        <div className="fixed top-20 left-4 right-4 z-40 bg-slate-900/95 backdrop-blur-2xl rounded-2xl border border-white/15 shadow-2xl p-4 text-white">
           {NAV_LINKS.map(({ href, label }) => (
             <a key={href} href={href} onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 text-slate-700 font-semibold rounded-xl hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              className="flex items-center justify-between px-4 py-3 text-slate-200 font-semibold rounded-xl hover:bg-white/10 hover:text-white transition-colors">
               {label} <ChevronRight className="w-4 h-4 text-slate-400" />
             </a>
           ))}
-          <div className="pt-2 border-t border-slate-100 mt-1">
+          <div className="pt-3 border-t border-white/10 mt-2">
             <a href={waLink("Halo, saya ingin konsultasi layanan klinik.")} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold py-3 rounded-xl">
+              className="flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-500/30">
               <Phone className="w-4 h-4" /> Chat WhatsApp
             </a>
           </div>
@@ -235,34 +190,31 @@ export default function PageHome() {
       )}
 
       {/* ============================================================
-          HERO SECTION — Premium Medical Blue + Clean Centered Content
+          HERO SECTION — 1 LAYAR FULL (100vh)
+          Bersih, teks tepat di tengah layar, background foto jernih terlihat
           ============================================================ */}
-      <section id="beranda" className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-14">
+      <section id="beranda" className="relative h-screen min-h-[640px] flex flex-col justify-between overflow-hidden">
 
-        {/* Background Layers — Medical Blue Gradient with subtle hospital photo */}
+        {/* Background Layers — Foto medis jernih & terlihat jelas (TIDAK BURAM) */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=85"
             alt="Hero Background"
-            className="w-full h-full object-cover object-center filter brightness-[0.85]"
+            className="w-full h-full object-cover object-center"
           />
-          {/* Multi-tone clinical gradient — lively medical sapphire, NOT muddy black */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/92 via-blue-900/85 to-teal-950/90" />
-
-          {/* Soft ambient lighting accents */}
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-cyan-400/20 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-emerald-400/15 rounded-full blur-[130px] pointer-events-none" />
-          <div className="absolute bottom-20 left-10 w-[450px] h-[350px] bg-indigo-500/15 rounded-full blur-[130px] pointer-events-none" />
-
-          {/* Smooth bottom fade */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-blue-950/70" />
+          {/* Overlay jernih: foto stetoskop & keyboard tetap terlihat jelas dengan kontras yang pas */}
+          <div className="absolute inset-0 bg-slate-950/45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/65 via-transparent to-slate-950/85" />
         </div>
 
-        {/* Content Container — Centered Alignment */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex-1 flex flex-col items-center justify-center my-auto">
+        {/* Spacer atas */}
+        <div className="h-20 sm:h-24" />
 
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-medium text-cyan-200 mb-6 shadow-md shadow-black/10">
+        {/* Hero Content — PAS DI TENGAH LAYAR */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center my-auto">
+
+          {/* Badge Status */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-xs sm:text-sm font-medium text-cyan-200 mb-6 shadow-md drop-shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -270,77 +222,83 @@ export default function PageHome() {
             <span>Layanan Aktif 7 Hari Seminggu • Home Care &amp; Klinik</span>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-black tracking-tight leading-[1.1] mb-6 max-w-4xl">
-            <span className="block text-white drop-shadow-sm">Layanan Medis</span>
-            <span className="block bg-gradient-to-r from-teal-300 via-cyan-200 to-blue-300 bg-clip-text text-transparent drop-shadow-sm">
+          {/* Headline Utama */}
+          <h1 className="text-4xl sm:text-6xl lg:text-[70px] font-black tracking-tight leading-[1.12] mb-6 max-w-4xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
+            <span className="block text-white">Layanan Medis</span>
+            <span className="block bg-gradient-to-r from-teal-300 via-cyan-200 to-blue-200 bg-clip-text text-transparent">
               Profesional &amp; Terpercaya
             </span>
           </h1>
 
-          {/* Description */}
-          <p className="text-base sm:text-lg lg:text-xl text-blue-100/90 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+          {/* Deskripsi */}
+          <p className="text-base sm:text-lg lg:text-xl text-slate-100 max-w-2xl mx-auto mb-10 leading-relaxed font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Perawat bersertifikat siap melakukan home care langsung ke rumah Anda maupun tindakan di klinik — steril, aman, nyaman, dan penuh empati.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 w-full sm:w-auto">
+          {/* Tombol Aksi */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <a href={waLink("Halo, saya ingin menjadwalkan home care / kunjungan klinik.")}
               target="_blank" rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold px-8 py-4 rounded-full text-base shadow-xl shadow-emerald-600/30 transition-all duration-200 hover:-translate-y-1 hover:shadow-emerald-600/50">
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold px-8 py-4 rounded-full text-base shadow-xl shadow-emerald-600/40 transition-all duration-200 hover:-translate-y-1 hover:shadow-emerald-600/60">
               <svg className="w-5 h-5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               <span>Jadwalkan Sekarang (WA)</span>
             </a>
             <a href="#layanan"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold px-8 py-4 rounded-full text-base backdrop-blur-md transition-all duration-200 hover:-translate-y-1">
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base backdrop-blur-md transition-all duration-200 hover:-translate-y-1 shadow-lg">
               <span>Lihat Layanan</span>
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
+        </div>
 
-          {/* ============================================================
-              CENTERED STATS CARD (Count-Up Animation 0 -> 500+ & 3+)
-              ============================================================ */}
-          <div className="w-full max-w-3xl mx-auto bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-7 shadow-2xl shadow-blue-950/40">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x sm:divide-white/20 items-center">
+        {/* Indikator Scroll di bagian bawah */}
+        <div className="pb-8 relative z-10 flex flex-col items-center justify-center text-white/75 text-xs">
+          <span className="tracking-widest uppercase font-medium mb-1.5 drop-shadow">Scroll ke bawah</span>
+          <div className="w-5 h-8 border-2 border-white/50 rounded-full flex items-start justify-center p-1 shadow-md">
+            <div className="w-1.5 h-2 bg-white rounded-full animate-bounce" />
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          SECTION STATISTIK & RATING (Tampil setelah di-scroll)
+          Ukurannya proporsional, rapi, dan simetris di tengah
+          ============================================================ */}
+      <section className="relative z-20 py-12 bg-white border-b border-slate-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-b from-slate-50 to-blue-50/40 border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 md:divide-x md:divide-slate-200 items-center">
+              
               {/* Stat 1: Pasien Dilayani */}
               <div ref={statPatients.ref} className="flex flex-col items-center justify-center text-center px-4">
-                <span className="text-4xl sm:text-5xl font-black text-white tabular-nums tracking-tight">
+                <span className="text-3xl sm:text-4xl font-black text-blue-950 tabular-nums tracking-tight">
                   {statPatients.count}+
                 </span>
-                <span className="text-sm font-semibold text-teal-300 mt-1">Pasien Dilayani</span>
-                <span className="text-xs text-blue-100/70 mt-0.5">Home Care &amp; Klinik</span>
+                <span className="text-sm font-bold text-slate-800 mt-1">Pasien Dilayani</span>
+                <span className="text-xs text-slate-500 mt-0.5">Tindakan Medis di Rumah &amp; Klinik</span>
               </div>
 
               {/* Stat 2: Rating Kepuasan */}
               <div className="flex flex-col items-center justify-center text-center px-4">
-                <div className="flex items-center justify-center gap-1 mb-1.5">
+                <div className="flex items-center justify-center gap-1 mb-1">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-5 h-5 sm:w-6 sm:h-6 fill-amber-400 text-amber-400 drop-shadow-[0_2px_8px_rgba(251,191,36,0.5)]" />
+                    <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400 drop-shadow-sm" />
                   ))}
                 </div>
-                <span className="text-sm font-semibold text-teal-300">5.0 Rating Kepuasan</span>
-                <span className="text-xs text-blue-100/70 mt-0.5">Ulasan Pasien &amp; Keluarga</span>
+                <span className="text-sm font-bold text-slate-800">5.0 / 5.0 Rating Kepuasan</span>
+                <span className="text-xs text-slate-500 mt-0.5">Ulasan Nyata Pasien &amp; Keluarga</span>
               </div>
 
               {/* Stat 3: Pengalaman */}
               <div ref={statYears.ref} className="flex flex-col items-center justify-center text-center px-4">
-                <span className="text-4xl sm:text-5xl font-black text-white tabular-nums tracking-tight">
+                <span className="text-3xl sm:text-4xl font-black text-blue-950 tabular-nums tracking-tight">
                   {statYears.count}+ Tahun
                 </span>
-                <span className="text-sm font-semibold text-teal-300 mt-1">Pengalaman Medis</span>
-                <span className="text-xs text-blue-100/70 mt-0.5">STR &amp; SIPP Resmi Aktif</span>
+                <span className="text-sm font-bold text-slate-800 mt-1">Pengalaman Medis</span>
+                <span className="text-xs text-slate-500 mt-0.5">STR &amp; SIPP Resmi Terdaftar</span>
               </div>
+
             </div>
-          </div>
-
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="relative z-10 flex flex-col items-center justify-center mt-6 text-white/60 text-xs">
-          <span className="tracking-widest uppercase font-medium mb-1.5">Scroll untuk melihat</span>
-          <div className="w-5 h-8 border-2 border-white/30 rounded-full flex items-start justify-center p-1">
-            <div className="w-1.5 h-2 bg-white/70 rounded-full animate-bounce" />
           </div>
         </div>
       </section>
