@@ -73,8 +73,8 @@ const services = [
   { title: "Khitan Modern", desc: "Metode modern (klem/laser), minim nyeri, cepat sembuh, aman untuk anak-anak maupun dewasa.", image: "https://rumahsunatdrmahdian.com/wp-content/uploads/2022/03/MAHDIAN-KLEM-1.jpeg", badge: "Klinik" },
   { title: "Pemasangan Infus", desc: "Rehidrasi, vitamin drip, atau terapi obat intravena, langsung di klinik maupun home visit.", image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&q=75", badge: "Klinik & Home Care" },
   { title: "Pemasangan NGT", desc: "Pemasangan selang lambung dengan prosedur aseptik ketat dan panduan nutrisi lengkap.", image: "https://cdn.hellosehat.com/wp-content/uploads/2021/02/33d3ea69-nasogastric-tube.jpg?w=800&q=75", badge: "Klinik & Home Care" },
-  { title: "Pemasangan Kateter", desc: "Pemasangan dan penggantian kateter urin dengan teknik steril untuk mencegah risiko infeksi.", image: "https://res.cloudinary.com/dk0z4ums3/image/upload/v1598254245/attached_image/kateter-urine-indikasi-jenis-dan-prosedur-pemasangan-alodokter.jpg", badge: "Klinik & Home Care" },
-  { title: "Terapi Bekam", desc: "Bekam basah/kering oleh terapis bersertifikat untuk melancarkan peredaran darah dan relaksasi.", image: "https://images.unsplash.com/photo-17150e99dcf7?w=600&q=75", badge: "Klinik & Home Care" },
+  { title: "Pemasangan Kateter", desc: "Pemasangan dan penggantian kateter urin dengan teknik steril untuk mencegah risiko infeksi.", image: "https://images.pexels.com/photos/35609688/pexels-photo-35609688.jpeg?auto=compress&cs=tinysrgb&w=600", badge: "Klinik & Home Care" },
+  { title: "Terapi Bekam", desc: "Bekam basah/kering oleh terapis bersertifikat untuk melancarkan peredaran darah dan relaksasi.", image: "https://images.pexels.com/photos/8312866/pexels-photo-8312866.jpeg?auto=compress&cs=tinysrgb&w=600", badge: "Klinik & Home Care" },
   { title: "Terapi Inframerah", desc: "Fisioterapi sinar infrared untuk meredakan nyeri sendi, kaku otot, dan mempercepat pemulihan.", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Infrared_Heat_Lamp.jpg?width=600", badge: "Klinik" },
   { title: "Cek Lab Mini", desc: "Gula darah, kolesterol, asam urat, hemoglobin – hasil cepat dalam hitungan menit, harga terjangkau.", image: "https://images.unsplash.com/photo-1683727027478-5df5f0c89d27?w=600&q=75", badge: "Klinik" },
 ];
@@ -379,7 +379,14 @@ export default function PageHome() {
             {services.map((s, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col group">
                 <div className="relative h-44 overflow-hidden">
-                  <img src={s.image} alt={s.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=600&q=75";
+                    }}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
                   <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-blue-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-blue-100">{s.badge}</span>
                 </div>
