@@ -69,14 +69,14 @@ function useCountUp(target: number, duration = 1800) {
 }
 
 const services = [
-  { title: "Perawatan Luka", desc: "Perawatan luka diabetes, pasca operasi, luka bakar, dan kronis menggunakan teknik modern wound care steril.", image: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Khitan Modern", desc: "Metode modern (klem/laser), minim nyeri, cepat sembuh, aman untuk anak-anak maupun dewasa.", image: "https://images.unsplash.com/photo-1631563019676-dade0dbdb8e8?w=600&q=75", badge: "Klinik" },
-  { title: "Pemasangan Infus", desc: "Rehidrasi, vitamin drip, atau terapi obat intravena, langsung di klinik maupun home visit.", image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Pemasangan NGT", desc: "Pemasangan selang lambung dengan prosedur aseptik ketat dan panduan nutrisi lengkap.", image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Pemasangan Kateter", desc: "Pemasangan dan penggantian kateter urin dengan teknik steril untuk mencegah risiko infeksi.", image: "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Terapi Bekam", desc: "Bekam basah/kering oleh terapis bersertifikat untuk melancarkan peredaran darah dan relaksasi.", image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Terapi Inframerah", desc: "Fisioterapi sinar infrared untuk meredakan nyeri sendi, kaku otot, dan mempercepat pemulihan.", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=75", badge: "Klinik" },
-  { title: "Cek Lab Mini", desc: "Gula darah, kolesterol, asam urat, hemoglobin – hasil cepat dalam hitungan menit, harga terjangkau.", image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&q=75", badge: "Klinik" },
+  { title: "Perawatan Luka", desc: "Perawatan luka diabetes, pasca operasi, luka bakar, dan kronis menggunakan teknik modern wound care steril.", image: "https://images.unsplash.com/photo-1609840533741-62c180d0be79?w=600&q=75", badge: "Klinik & Home Care" },
+  { title: "Khitan Modern", desc: "Metode modern (klem/laser), minim nyeri, cepat sembuh, aman untuk anak-anak maupun dewasa.", image: "https://rumahsunatdrmahdian.com/wp-content/uploads/2022/03/MAHDIAN-KLEM-1.jpeg", badge: "Klinik" },
+  { title: "Pemasangan Infus", desc: "Rehidrasi, vitamin drip, atau terapi obat intravena, langsung di klinik maupun home visit.", image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&q=75", badge: "Klinik & Home Care" },
+  { title: "Pemasangan NGT", desc: "Pemasangan selang lambung dengan prosedur aseptik ketat dan panduan nutrisi lengkap.", image: "https://cdn.hellosehat.com/wp-content/uploads/2021/02/33d3ea69-nasogastric-tube.jpg?w=800&q=75", badge: "Klinik & Home Care" },
+  { title: "Pemasangan Kateter", desc: "Pemasangan dan penggantian kateter urin dengan teknik steril untuk mencegah risiko infeksi.", image: "https://res.cloudinary.com/dk0z4ums3/image/upload/v1598254245/attached_image/kateter-urine-indikasi-jenis-dan-prosedur-pemasangan-alodokter.jpg", badge: "Klinik & Home Care" },
+  { title: "Terapi Bekam", desc: "Bekam basah/kering oleh terapis bersertifikat untuk melancarkan peredaran darah dan relaksasi.", image: "https://images.unsplash.com/photo-17150e99dcf7?w=600&q=75", badge: "Klinik & Home Care" },
+  { title: "Terapi Inframerah", desc: "Fisioterapi sinar infrared untuk meredakan nyeri sendi, kaku otot, dan mempercepat pemulihan.", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Infrared_Heat_Lamp.jpg?width=600", badge: "Klinik" },
+  { title: "Cek Lab Mini", desc: "Gula darah, kolesterol, asam urat, hemoglobin – hasil cepat dalam hitungan menit, harga terjangkau.", image: "https://images.unsplash.com/photo-1683727027478-5df5f0c89d27?w=600&q=75", badge: "Klinik" },
 ];
 
 const certs = [
