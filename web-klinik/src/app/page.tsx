@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import {
   Phone, MapPin, Clock, ShieldCheck, Building2,
   Home as HomeIcon, Award, CheckCircle2, ExternalLink,
-  Menu, X, Sparkles, Star, ChevronRight, Activity, ArrowRight
+  Menu, X, Sparkles, Star, ChevronRight, Activity, ArrowRight,
+  HeartHandshake, Stethoscope
 } from "lucide-react";
 import TestimonialMarquee from "@/components/ui/testimonial-marquee";
 
@@ -87,10 +88,10 @@ const certs = [
 
 const NAV_LINKS = [
   { href: "#beranda", label: "Beranda" },
-  { href: "#layanan", label: "Layanan" },
+  { href: "#layanan", label: "Layanan Medis" },
   { href: "#tentang", label: "Tentang Kami" },
   { href: "#galeri", label: "Testimoni" },
-  { href: "#lokasi", label: "Lokasi" },
+  { href: "#lokasi", label: "Lokasi & Kontak" },
 ];
 
 export default function PageHome() {
@@ -106,7 +107,7 @@ export default function PageHome() {
       const sections = ["beranda", "layanan", "tentang", "galeri", "lokasi"];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 120) {
+        if (el && window.scrollY >= el.offsetTop - 140) {
           setActiveNav(id);
           break;
         }
@@ -120,32 +121,43 @@ export default function PageHome() {
     <div className="min-h-screen bg-white text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
 
       {/* ============================================================
-          NAVBAR — SATU DESAIN KONSISTEN & ELEGAN
-          Floating frosted glass pill yang konsisten sebelum & sesudah scroll
+          NAVBAR — STANDAR RUMAH SAKIT INTERNASIONAL
+          Satu desain mewah, konsisten, berwibawa, dan modern
           ============================================================ */}
-      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav className="pointer-events-auto w-full max-w-6xl bg-slate-900/85 hover:bg-slate-900/95 backdrop-blur-xl border border-white/15 rounded-2xl shadow-2xl shadow-black/30 px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-300">
+      <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
+        <nav className="pointer-events-auto w-full max-w-7xl bg-slate-950/85 hover:bg-slate-950/95 backdrop-blur-2xl border border-white/15 rounded-2xl sm:rounded-3xl shadow-2xl shadow-black/40 px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between transition-all duration-300">
           
-          {/* Logo Brand */}
+          {/* Logo Brand: Medical Shield & Hospital Typography */}
           <a href="#beranda" className="flex items-center gap-3 shrink-0 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-400 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
-              <span className="font-black text-xl leading-none select-none">+</span>
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-teal-400 p-0.5 shadow-md shadow-blue-500/30 group-hover:scale-105 transition-transform">
+              <div className="w-full h-full bg-slate-950/40 rounded-[10px] flex items-center justify-center backdrop-blur-sm">
+                <span className="text-white font-black text-2xl leading-none select-none drop-shadow">+</span>
+              </div>
             </div>
             <div className="leading-tight">
-              <span className="block font-extrabold text-[16px] text-white tracking-tight">Klinik Sehat Mandiri</span>
-              <span className="block text-[10px] font-semibold text-teal-300 uppercase tracking-widest">Home Care &amp; Klinik</span>
+              <div className="flex items-center gap-2">
+                <span className="block font-black text-[16px] sm:text-[17px] text-white tracking-tight group-hover:text-cyan-200 transition-colors">
+                  Klinik Sehat Mandiri
+                </span>
+                <span className="hidden lg:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30 uppercase tracking-wider">
+                  Terakreditasi
+                </span>
+              </div>
+              <span className="block text-[10px] sm:text-[11px] font-medium text-teal-300/90 tracking-wider">
+                Layanan Medis &amp; Home Care Resmi Kemenkes
+              </span>
             </div>
           </a>
 
-          {/* Nav Links Desktop */}
-          <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full px-2 py-1 gap-1 shadow-inner">
+          {/* Navigation Links — Clean & Modern */}
+          <div className="hidden lg:flex items-center bg-white/5 border border-white/10 rounded-full px-2 py-1 gap-1 shadow-inner">
             {NAV_LINKS.map(({ href, label }) => {
               const isActive = activeNav === href.replace("#", "");
               return (
                 <a key={href} href={href}
                   className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 ${
                     isActive
-                      ? "bg-white/20 text-white shadow-sm"
+                      ? "bg-white/20 text-white shadow-sm shadow-black/20"
                       : "text-slate-300 hover:text-white hover:bg-white/10"
                   }`}>
                   {label}
@@ -154,17 +166,28 @@ export default function PageHome() {
             })}
           </div>
 
-          {/* Action Button: WhatsApp */}
-          <div className="flex items-center gap-2">
-            <a href={waLink("Halo, saya ingin konsultasi layanan klinik.")}
+          {/* Right Action: Emergency Hotline & WhatsApp Appointment */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Quick Hotline Pill (Desktop) */}
+            <a href="tel:081234567890" className="hidden xl:flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 rounded-full bg-white/5 border border-white/10 transition-colors">
+              <Phone className="w-3.5 h-3.5 text-teal-400" />
+              <span>0812-3456-7890</span>
+            </a>
+
+            {/* Main WhatsApp Button */}
+            <a href={waLink("Halo Klinik Sehat Mandiri, saya ingin reservasi layanan medis / home care.")}
               target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-0.5">
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-emerald-500/50">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-80" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+              </span>
               <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span>Chat WhatsApp</span>
+              <span>Konsultasi WA</span>
             </a>
 
             {/* Mobile Hamburger Button */}
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-white hover:bg-white/10 rounded-xl">
+            <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden p-2 text-white hover:bg-white/10 rounded-xl transition-colors">
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
@@ -173,87 +196,110 @@ export default function PageHome() {
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="fixed top-20 left-4 right-4 z-40 bg-slate-900/95 backdrop-blur-2xl rounded-2xl border border-white/15 shadow-2xl p-4 text-white">
+        <div className="fixed top-20 left-4 right-4 z-40 bg-slate-950/95 backdrop-blur-2xl rounded-2xl border border-white/15 shadow-2xl p-4 text-white">
           {NAV_LINKS.map(({ href, label }) => (
             <a key={href} href={href} onClick={() => setMenuOpen(false)}
               className="flex items-center justify-between px-4 py-3 text-slate-200 font-semibold rounded-xl hover:bg-white/10 hover:text-white transition-colors">
               {label} <ChevronRight className="w-4 h-4 text-slate-400" />
             </a>
           ))}
-          <div className="pt-3 border-t border-white/10 mt-2">
-            <a href={waLink("Halo, saya ingin konsultasi layanan klinik.")} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-500/30">
-              <Phone className="w-4 h-4" /> Chat WhatsApp
+          <div className="pt-3 border-t border-white/10 mt-2 space-y-2">
+            <a href={waLink("Halo Klinik Sehat Mandiri, saya ingin reservasi layanan medis.")} target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-500/30">
+              <Phone className="w-4 h-4" /> Hubungi via WhatsApp
             </a>
           </div>
         </div>
       )}
 
       {/* ============================================================
-          HERO SECTION — 1 LAYAR FULL (100vh)
-          Bersih, teks tepat di tengah layar, background foto jernih terlihat
+          HERO SECTION — STANDAR RUMAH SAKIT INTERNASIONAL (100vh)
+          Background blur halus (bokeh medis) + Teks presisi di tengah layar
           ============================================================ */}
-      <section id="beranda" className="relative h-screen min-h-[640px] flex flex-col justify-between overflow-hidden">
+      <section id="beranda" className="relative h-screen min-h-[680px] flex flex-col justify-between overflow-hidden">
 
-        {/* Background Layers — Foto medis jernih & terlihat jelas (TIDAK BURAM) */}
-        <div className="absolute inset-0 z-0">
+        {/* Background Layers — Foto medis dengan BLUR HALUS (blur-sm / ~2.5px) */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=85"
-            alt="Hero Background"
-            className="w-full h-full object-cover object-center"
+            alt="Klinik Sehat Mandiri Medical Care"
+            className="w-full h-full object-cover object-center scale-105 filter blur-[2.5px] brightness-[0.88] contrast-[1.08]"
           />
-          {/* Overlay jernih: foto stetoskop & keyboard tetap terlihat jelas dengan kontras yang pas */}
-          <div className="absolute inset-0 bg-slate-950/45" />
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/65 via-transparent to-slate-950/85" />
+          {/* Medical sapphire lighting & contrast overlays */}
+          <div className="absolute inset-0 bg-slate-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-blue-950/65 to-slate-950/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/70 via-transparent to-slate-950/90" />
+          
+          {/* Subtle Ambient Radial Glow */}
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none" />
         </div>
 
-        {/* Spacer atas */}
-        <div className="h-20 sm:h-24" />
+        {/* Spacer Atas */}
+        <div className="h-24 sm:h-28" />
 
-        {/* Hero Content — PAS DI TENGAH LAYAR */}
+        {/* Hero Content — PAS DI TENGAH LAYAR (CENTERED) */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center my-auto">
 
-          {/* Badge Status */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-xs sm:text-sm font-medium text-cyan-200 mb-6 shadow-md drop-shadow-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span>Layanan Aktif 7 Hari Seminggu • Home Care &amp; Klinik</span>
+          {/* Hospital Accreditation & Trust Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-blue-950/70 border border-cyan-400/35 backdrop-blur-md text-xs sm:text-sm font-semibold text-cyan-200 mb-6 shadow-xl shadow-black/30">
+            <ShieldCheck className="w-4 h-4 text-teal-400 shrink-0" />
+            <span>Standar Medis SOP Rumah Sakit • STR &amp; SIPP Kemenkes RI Aktif</span>
           </div>
 
-          {/* Headline Utama */}
-          <h1 className="text-4xl sm:text-6xl lg:text-[70px] font-black tracking-tight leading-[1.12] mb-6 max-w-4xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
-            <span className="block text-white">Layanan Medis</span>
-            <span className="block bg-gradient-to-r from-teal-300 via-cyan-200 to-blue-200 bg-clip-text text-transparent">
-              Profesional &amp; Terpercaya
+          {/* Headline Utama — Berwibawa & Elegan */}
+          <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-black tracking-tight leading-[1.08] mb-6 max-w-4xl drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]">
+            <span className="block text-white">Layanan Medis Profesional</span>
+            <span className="block bg-gradient-to-r from-teal-300 via-cyan-200 to-sky-300 bg-clip-text text-transparent drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)]">
+              &amp; Home Care Terpercaya
             </span>
           </h1>
 
-          {/* Deskripsi */}
-          <p className="text-base sm:text-lg lg:text-xl text-slate-100 max-w-2xl mx-auto mb-10 leading-relaxed font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-            Perawat bersertifikat siap melakukan home care langsung ke rumah Anda maupun tindakan di klinik — steril, aman, nyaman, dan penuh empati.
+          {/* Deskripsi Standar RS Internasional */}
+          <p className="text-base sm:text-lg lg:text-xl text-slate-100/95 max-w-2xl mx-auto mb-10 leading-relaxed font-normal drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            Dapatkan perawatan medis berstandar rumah sakit tanpa perlu antre di luar. Ditangani langsung oleh perawat bersertifikasi resmi untuk perawatan luka, infus, kateter, hingga pemulihan pasca rawat inap.
           </p>
 
-          {/* Tombol Aksi */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <a href={waLink("Halo, saya ingin menjadwalkan home care / kunjungan klinik.")}
+          {/* Tombol Aksi Utama */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-10">
+            <a href={waLink("Halo, saya ingin menjadwalkan home care / tindakan klinik.")}
               target="_blank" rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold px-8 py-4 rounded-full text-base shadow-xl shadow-emerald-600/40 transition-all duration-200 hover:-translate-y-1 hover:shadow-emerald-600/60">
-              <svg className="w-5 h-5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span>Jadwalkan Sekarang (WA)</span>
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-white font-bold px-8 py-4 rounded-full text-base shadow-2xl shadow-emerald-500/40 transition-all duration-200 hover:-translate-y-1 hover:shadow-emerald-500/60 ring-1 ring-emerald-300/30">
+              <Phone className="w-5 h-5 fill-current flex-shrink-0" />
+              <span>Jadwalkan Layanan Medis (WA)</span>
+              <ChevronRight className="w-4 h-4" />
             </a>
             <a href="#layanan"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base backdrop-blur-md transition-all duration-200 hover:-translate-y-1 shadow-lg">
-              <span>Lihat Layanan</span>
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 text-white font-semibold px-8 py-4 rounded-full text-base backdrop-blur-md transition-all duration-200 hover:-translate-y-1 shadow-lg shadow-black/20">
+              <span>Lihat 8 Pilihan Layanan</span>
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
+
+          {/* Quick Trust Highlights (4 Pilar Standar RS) */}
+          <div className="hidden sm:flex items-center justify-center gap-6 sm:gap-8 text-xs font-medium text-slate-200/90 pt-2 border-t border-white/10 max-w-3xl">
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+              <span>Steril Standar SOP RS</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+              <span>Perawat STR &amp; SIPP Aktif</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+              <span>Home Visit 7 Hari Seminggu</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+              <span>Konsultasi Awal Cepat</span>
+            </div>
+          </div>
+
         </div>
 
         {/* Indikator Scroll di bagian bawah */}
         <div className="pb-8 relative z-10 flex flex-col items-center justify-center text-white/75 text-xs">
-          <span className="tracking-widest uppercase font-medium mb-1.5 drop-shadow">Scroll ke bawah</span>
+          <span className="tracking-widest uppercase font-semibold mb-1.5 drop-shadow">Scroll ke bawah</span>
           <div className="w-5 h-8 border-2 border-white/50 rounded-full flex items-start justify-center p-1 shadow-md">
             <div className="w-1.5 h-2 bg-white rounded-full animate-bounce" />
           </div>
