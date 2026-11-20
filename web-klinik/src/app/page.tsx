@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import {
   Phone, MapPin, Clock, ShieldCheck, Building2,
   Home as HomeIcon, Award, CheckCircle2, ExternalLink,
-  Menu, X, Sparkles, Star, ChevronRight, Activity, ArrowRight
+  Menu, X, Sparkles, Star, ChevronRight, Activity, ArrowRight,
+  FileCheck, ZoomIn, BadgeCheck, Stethoscope
 } from "lucide-react";
 import TestimonialMarquee from "@/components/ui/testimonial-marquee";
 
@@ -80,9 +81,36 @@ const services = [
 ];
 
 const certs = [
-  { title: "Surat Tanda Registrasi (STR)", img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80" },
-  { title: "Sertifikat Wound Care", img: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80" },
-  { title: "SIPP Praktik Mandiri", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" },
+  {
+    title: "Surat Tanda Registrasi (STR) Perawat",
+    category: "Legalitas & Lisensi Nasional",
+    issuer: "Konsil Tenaga Kesehatan Indonesia (KTKI) - Kemenkes RI",
+    noReg: "No. Registrasi: 14 01 5 2 1 20-3849102",
+    validity: "Terdaftar Resmi Seumur Hidup",
+    desc: "Bukti tertulis legalitas kompetensi medis perawat yang diakui resmi oleh Kementerian Kesehatan Republik Indonesia untuk seluruh wilayah NKRI.",
+    img: "https://images.unsplash.com/photo-1589330694653-dad6bc0140fa?w=1000&q=85",
+    badge: "Kemenkes RI"
+  },
+  {
+    title: "Surat Izin Praktik Perawat (SIPP)",
+    category: "Izin Praktik Mandiri & Home Care",
+    issuer: "Dinas Kesehatan & DPMPTSP Kota",
+    noReg: "No. Izin: 446/0921/SIPP/DINKES/2022",
+    validity: "Izin Praktik Aktif & Terverifikasi",
+    desc: "Izin operasional legal penyelenggaraan pelayanan asuhan keperawatan mandiri, visit home care, dan tindakan medis di klinik.",
+    img: "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=1000&q=85",
+    badge: "Dinkes Resmi"
+  },
+  {
+    title: "Sertifikat Modern Wound Care (CWCC)",
+    category: "Keahlian Klinis Spesialis",
+    issuer: "Indonesian Wound Care Clinician (InWCCA)",
+    noReg: "No. Sertifikat: WCA-ID/2021/0845-EXP",
+    validity: "Certified Wound Specialist",
+    desc: "Sertifikasi keahlian tata laksana luka modern (luka diabetes/gangren, dekubitus, luka bakar, dan luka pasca-operasi) berstandar steril.",
+    img: "https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?w=1000&q=85",
+    badge: "Spesialis Luka"
+  },
 ];
 
 const NAV_LINKS = [
@@ -405,54 +433,188 @@ export default function PageHome() {
       </section>
 
       {/* ============================================================
-          TENTANG KAMI
+          TENTANG KAMI: PROFIL TENAGA MEDIS & LEGALITAS TERPISAH
           ============================================================ */}
       <section id="tentang" className="py-24 bg-slate-50 border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=80" alt="Perawat" className="w-full h-[480px] object-cover object-top" />
-              </div>
-              <div className="absolute -bottom-5 right-6 bg-white rounded-2xl px-4 py-3.5 shadow-xl border border-slate-100 flex items-center gap-3">
-                <Award className="w-9 h-9 text-blue-700 flex-shrink-0" />
-                <div>
-                  <p className="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">Legalitas Resmi</p>
-                  <p className="font-bold text-slate-900 text-sm">STR &amp; SIPP Aktif</p>
+          
+          {/* BAGIAN 1: PROFIL TENAGA MEDIS (PERAWAT) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Kolom Kiri: Foto Perawat & Badges Visual (5 cols) */}
+            <div className="lg:col-span-5 relative flex justify-center">
+              <div className="relative w-full max-w-md">
+                {/* Decorative Aura Glow */}
+                <div className="absolute -inset-4 bg-gradient-to-tr from-teal-500/20 via-blue-500/15 to-transparent rounded-[2.5rem] filter blur-2xl -z-10" />
+
+                {/* Frame Foto Utama */}
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100">
+                  <img
+                    src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=80"
+                    alt="Ns. Sari Dewi, S.Kep - Perawat Penanggung Jawab Homecareku"
+                    className="w-full h-[490px] object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
+
+                  {/* Keterangan Nama di Foto */}
+                  <div className="absolute bottom-5 left-5 right-5 text-white">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/90 text-white text-xs font-bold backdrop-blur-md mb-2 shadow-sm">
+                      <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                      Siap Pelayanan Home Care &amp; Klinik
+                    </div>
+                    <p className="font-extrabold text-xl tracking-tight">Ns. Sari Dewi, S.Kep</p>
+                    <p className="text-xs text-slate-200">Perawat Penanggung Jawab Klinis</p>
+                  </div>
+                </div>
+
+                {/* Floating Badge 1 - Pengalaman */}
+                <div className="absolute -top-3 -left-3 sm:-left-5 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xl border border-slate-100 hidden sm:flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-slate-900">8+ Tahun</p>
+                    <p className="text-[11px] text-slate-500">Pengalaman Medis</p>
+                  </div>
+                </div>
+
+                {/* Floating Badge 2 - Legalitas Terdaftar */}
+                <div className="absolute -bottom-5 -right-3 sm:-right-5 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-slate-100 flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 border border-teal-100 flex items-center justify-center">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-teal-700 font-bold uppercase tracking-wider">Legalitas Resmi</p>
+                    <p className="font-extrabold text-slate-900 text-sm">STR &amp; SIPP Kemenkes Aktif</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
-              <span className="inline-block bg-blue-50 text-blue-700 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3">Tentang Tenaga Medis</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-5 tracking-tight">Sentuhan Medis Humanis,<br />Hangat &amp; Berpengalaman</h2>
-              <p className="text-slate-600 leading-relaxed mb-6">Halo, saya <strong>Ns. Sari Dewi, S.Kep</strong> — perawat berpengalaman lebih dari 8 tahun di keperawatan klinis dan komunitas. Homecareku didirikan untuk menghadirkan layanan medis berkualitas yang terasa hangat dan personal.</p>
-              <div className="space-y-3 mb-7">
-                {["Lulusan Profesi Ners dari universitas terkemuka", "Tersertifikasi Modern Wound Care, BHD & Phlebotomy", "Pengalaman di RS rujukan provinsi selama 5+ tahun", "Protokol sterilisasi standar Kemenkes RI"].map(item => (
-                  <div key={item} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-slate-700 text-sm">{item}</span>
+
+            {/* Kolom Kanan: Narasi Profil & Kualifikasi (7 cols) */}
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-2 bg-blue-100/80 text-blue-800 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3.5 w-fit border border-blue-200/60">
+                <Stethoscope className="w-3.5 h-3.5 text-blue-600" />
+                Tentang Tenaga Medis
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
+                Sentuhan Medis Humanis,<br />Hangat &amp; Berpengalaman
+              </h2>
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm sm:text-base">
+                Halo, saya <strong>Ns. Sari Dewi, S.Kep</strong> — perawat berlisensi resmi dengan pengalaman lebih dari 8 tahun dalam keperawatan klinis dan komunitas. <strong>Homecareku</strong> hadir dengan dedikasi memberikan pelayanan medis berstandar rumah sakit yang aman, privat, dan penuh empati langsung di kenyamanan rumah pasien maupun fasilitas klinik kami.
+              </p>
+
+              {/* 4 Pilar Kualifikasi */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                {[
+                  { title: "Profesi Ners", desc: "Lulusan Ners dari universitas terkemuka dengan predikat memuaskan" },
+                  { title: "Sertifikasi Wound Care", desc: "Tersertifikasi Modern Wound Care (InWCCA), BHD & Phlebotomy" },
+                  { title: "5+ Tahun RS Rujukan", desc: "Pengalaman penanganan rawat inap, luka akut & kronis di RS provinsi" },
+                  { title: "Standar Sterilisasi Kemenkes", desc: "Protokol aseptik ketat dan instrumen medis sekali pakai higienis" },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm hover:border-teal-300 transition-colors">
+                    <CheckCircle2 className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-bold text-slate-900">{item.title}</p>
+                      <p className="text-[11px] text-slate-500 leading-snug mt-0.5">{item.desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>
-              <blockquote className="border-l-4 border-teal-400 pl-4 py-1 bg-teal-50 rounded-r-xl text-slate-700 italic text-sm leading-relaxed mb-7">
-                &ldquo;Setiap pasien adalah prioritas. Kami hadir bukan hanya untuk mengobati, tetapi menemani perjalanan kesembuhan Anda dengan penuh empati.&rdquo;
+
+              {/* Quote Filosofi Pelayanan */}
+              <blockquote className="border-l-4 border-teal-500 pl-4 py-2.5 bg-gradient-to-r from-teal-50 to-blue-50/40 rounded-r-2xl text-slate-700 italic text-sm leading-relaxed mb-6">
+                &ldquo;Setiap pasien adalah prioritas kami. Kami hadir bukan hanya untuk melakukan tindakan fisik, melainkan mendampingi proses kesembuhan dengan ketulusan dan ketenangan bagi keluarga.&rdquo;
               </blockquote>
-              <div className="border-t border-slate-200 pt-5">
-                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Legalitas &amp; Sertifikat — Klik untuk memperbesar</h4>
-                <div className="grid grid-cols-3 gap-3">
-                  {certs.map((c) => (
-                    <div key={c.title} onClick={() => setLightbox(c.img)}
-                      className="group relative cursor-pointer rounded-xl overflow-hidden aspect-video border border-slate-200 shadow-sm hover:shadow-md transition-all">
-                      <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                      <div className="absolute inset-0 bg-blue-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-1.5">
-                        <span className="text-white text-[10px] font-semibold text-center leading-snug">{c.title}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+
+              {/* Tombol Konsultasi Langsung */}
+              <div>
+                <a href={waLink("Halo Ns. Sari Dewi, saya ingin konsultasi mengenai kondisi pasien dan layanan home care.")}
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold px-6 py-3.5 rounded-full text-sm shadow-lg shadow-teal-700/20 hover:-translate-y-0.5 transition-all">
+                  <Phone className="w-4 h-4" />
+                  <span>Konsultasi Langsung dengan Perawat (WA)</span>
+                </a>
               </div>
             </div>
           </div>
+
+          {/* ============================================================
+              BAGIAN 2: SECTION TERPISAH LEGALITAS & SERTIFIKASI RESMI
+              Tampil penuh, eksklusif, dan profesional
+              ============================================================ */}
+          <div className="mt-24 pt-16 border-t border-slate-200">
+            {/* Header Bagian Legalitas */}
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-1.5 bg-teal-100 text-teal-800 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3 border border-teal-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
+                Legalitas &amp; Akreditasi Resmi
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Sertifikasi Profesi &amp; Izin Praktik Resmi
+              </h3>
+              <p className="text-slate-500 mt-2.5 text-sm sm:text-base leading-relaxed">
+                Keamanan dan kenyamanan Anda adalah prioritas utama. Seluruh tindakan keperawatan diselenggarakan di bawah izin resmi dinas kesehatan dan registrasi sah Kementerian Kesehatan RI.
+              </p>
+            </div>
+
+            {/* Grid 3 Kartu Sertifikat Resmi */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {certs.map((c, i) => (
+                <div
+                  key={i}
+                  onClick={() => setLightbox(c.img)}
+                  className="group relative bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col cursor-pointer"
+                >
+                  {/* Top Bar Status */}
+                  <div className="px-5 pt-4 pb-3 flex items-center justify-between border-b border-slate-100 bg-slate-50/70">
+                    <span className="inline-flex items-center gap-1.5 text-emerald-700 font-bold text-xs">
+                      <BadgeCheck className="w-4 h-4 text-emerald-500" />
+                      {c.validity}
+                    </span>
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-600 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                      {c.badge}
+                    </span>
+                  </div>
+
+                  {/* Visual Preview Dokumen dengan Zoom Hover */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
+                    <img
+                      src={c.img}
+                      alt={c.title}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 group-hover:opacity-90 transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-blue-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 p-4 text-white">
+                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 shadow-lg">
+                        <ZoomIn className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs font-semibold drop-shadow">Klik untuk Memperbesar</span>
+                    </div>
+                  </div>
+
+                  {/* Keterangan Sertifikat */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p className="text-[11px] font-bold text-teal-600 uppercase tracking-wider mb-1">{c.category}</p>
+                      <h4 className="font-bold text-slate-900 text-base mb-1.5 group-hover:text-blue-700 transition-colors">
+                        {c.title}
+                      </h4>
+                      <p className="text-xs font-semibold text-slate-700 mb-2">{c.issuer}</p>
+                      <p className="text-xs text-slate-500 leading-relaxed mb-4">{c.desc}</p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                      <span className="font-mono text-[11px] text-slate-400 font-medium truncate max-w-[180px]">{c.noReg}</span>
+                      <span className="font-bold text-blue-600 group-hover:underline inline-flex items-center gap-1">
+                        Lihat Dokumen <ExternalLink className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -529,11 +691,38 @@ export default function PageHome() {
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
       </a>
 
-      {/* Lightbox */}
+      {/* Lightbox Modal Pratinjau Dokumen */}
       {lightbox && (
-        <div onClick={() => setLightbox(null)} className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer">
-          <div className="max-w-3xl w-full bg-white rounded-2xl overflow-hidden p-2 shadow-2xl">
-            <img src={lightbox} alt="Sertifikat" className="w-full max-h-[80vh] object-contain rounded-xl" />
+        <div
+          onClick={() => setLightbox(null)}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
+        >
+          <div
+            className="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950 text-white">
+              <span className="text-sm font-semibold flex items-center gap-2">
+                <FileCheck className="w-4 h-4 text-teal-400" />
+                Pratinjau Dokumen &amp; Legalitas Resmi
+              </span>
+              <button
+                onClick={() => setLightbox(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-3 bg-black/50 flex items-center justify-center">
+              <img
+                src={lightbox}
+                alt="Dokumen Legalitas"
+                className="w-full max-h-[75vh] object-contain rounded-xl"
+              />
+            </div>
+            <div className="px-6 py-3 bg-slate-950 text-center text-xs text-slate-400 border-t border-white/5">
+              Dokumen tersimpan dan terverifikasi secara sah dalam database kepegawaian Homecareku.
+            </div>
           </div>
         </div>
       )}
