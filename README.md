@@ -1,4 +1,4 @@
-# 🏥 Klinik Sehat Mandiri — Website Profil & Home Care
+# 🏥 Klinik — Website Profil & Home Care
 
 Website profil klinik kesehatan dan layanan **Home Care** yang dibangun dengan HTML, CSS, dan JavaScript murni (tanpa framework). Desain elegan, modern, dan responsif untuk semua perangkat.
 
