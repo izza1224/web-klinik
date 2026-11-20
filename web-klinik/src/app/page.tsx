@@ -7,6 +7,7 @@ import {
   FileCheck, ZoomIn, BadgeCheck, Stethoscope
 } from "lucide-react";
 import TestimonialMarquee from "@/components/ui/testimonial-marquee";
+import HoverFooter from "@/components/ui/hover-footer";
 
 const WA_NUMBER = "6281234567890";
 const waLink = (msg: string) =>
@@ -667,21 +668,7 @@ export default function PageHome() {
       </section>
 
       {/* ============================================================ FOOTER ============================================================ */}
-      <footer className="bg-slate-950 text-slate-400 py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <img src="/logo.png" alt="Homecareku Logo" className="w-10 h-10 object-contain drop-shadow-md" />
-            <span className="text-white font-black text-xl tracking-tight">Homecareku</span>
-          </div>
-          <p className="text-slate-500 max-w-sm mx-auto mb-6 text-sm">Mitra terpercaya keluarga Anda dalam menghadirkan layanan medis profesional yang hangat dan humanis.</p>
-          <div className="flex justify-center gap-6 mb-6 flex-wrap text-sm">
-            {NAV_LINKS.map(({href,label}) => (
-              <a key={href} href={href} className="text-slate-500 hover:text-white transition-colors">{label}</a>
-            ))}
-          </div>
-          <p className="text-xs text-slate-700">© 2026 Homecareku. Seluruh hak cipta dilindungi undang-undang.</p>
-        </div>
-      </footer>
+      <HoverFooter />
 
       {/* Floating WA */}
       <a href={waLink("Halo Homecareku, saya ingin konsultasi layanan.")} target="_blank" rel="noopener noreferrer"
