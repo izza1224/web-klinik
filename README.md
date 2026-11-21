@@ -118,7 +118,7 @@ Jl. Kesehatan No. 123, Kota Sehat 12345
 
 ## 📄 Lisensi
 
-Dibuat khusus untuk **Klinik Sehat Mandiri**. Hak cipta dilindungi © 2024.
+Dibuat khusus untuk **Klinik homecare**. Hak cipta dilindungi © 2024.
 
 ---
 
