@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import {
   Phone, MapPin, Clock, ShieldCheck, Building2,
   Home as HomeIcon, Award, CheckCircle2, ExternalLink,
@@ -8,10 +9,25 @@ import {
 } from "lucide-react";
 import TestimonialMarquee from "@/components/ui/testimonial-marquee";
 import HoverFooter from "@/components/ui/hover-footer";
-
-const WA_NUMBER = "6281234567890";
-const waLink = (msg: string) =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+import {
+  fetchSiteSettings,
+  fetchAboutData,
+  fetchServices,
+  fetchCertificates,
+  fetchTestimonials,
+} from "@/lib/cms-service";
+import {
+  defaultSettings,
+  defaultAbout,
+  defaultServices,
+  defaultCertificates,
+  defaultTestimonials,
+  SiteSettings,
+  AboutData,
+  ServiceItem,
+  CertificateItem,
+  TestimonialItem,
+} from "@/lib/default-data";
 
 /* ---- Animated Counter Hook (smooth 0 -> target) ---- */
 function useCountUp(target: number, duration = 1800) {
@@ -34,7 +50,6 @@ function useCountUp(target: number, duration = 1800) {
     );
     obs.observe(el);
 
-    // Trigger fallback when visible
     const timer = setTimeout(() => {
       if (el) {
         const rect = el.getBoundingClientRect();
@@ -70,50 +85,6 @@ function useCountUp(target: number, duration = 1800) {
   return { count, ref };
 }
 
-const services = [
-  { title: "Perawatan Luka", desc: "Perawatan luka diabetes, pasca operasi, luka bakar, dan kronis menggunakan teknik modern wound care steril.", image: "https://images.unsplash.com/photo-1609840533741-62c180d0be79?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Khitan Modern", desc: "Metode modern (klem/laser), minim nyeri, cepat sembuh, aman untuk anak-anak maupun dewasa.", image: "https://rumahsunatdrmahdian.com/wp-content/uploads/2022/03/MAHDIAN-KLEM-1.jpeg", badge: "Klinik" },
-  { title: "Pemasangan Infus", desc: "Rehidrasi, vitamin drip, atau terapi obat intravena, langsung di klinik maupun home visit.", image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&q=75", badge: "Klinik & Home Care" },
-  { title: "Pemasangan NGT", desc: "Pemasangan selang lambung dengan prosedur aseptik ketat dan panduan nutrisi lengkap.", image: "https://cdn.hellosehat.com/wp-content/uploads/2021/02/33d3ea69-nasogastric-tube.jpg?w=800&q=75", badge: "Klinik & Home Care" },
-  { title: "Pemasangan Kateter", desc: "Pemasangan dan penggantian kateter urin dengan teknik steril untuk mencegah risiko infeksi.", image: "https://images.pexels.com/photos/35609688/pexels-photo-35609688.jpeg?auto=compress&cs=tinysrgb&w=600", badge: "Klinik & Home Care" },
-  { title: "Terapi Bekam", desc: "Bekam basah/kering oleh terapis bersertifikat untuk melancarkan peredaran darah dan relaksasi.", image: "https://images.pexels.com/photos/6629531/pexels-photo-6629531.jpeg?auto=compress&cs=tinysrgb&w=600", badge: "Klinik & Home Care" },
-  { title: "Terapi Inframerah", desc: "Fisioterapi sinar infrared untuk meredakan nyeri sendi, kaku otot, dan mempercepat pemulihan.", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Infrared_Heat_Lamp.jpg?width=600", badge: "Klinik" },
-  { title: "Cek Lab Mini", desc: "Gula darah, kolesterol, asam urat, hemoglobin – hasil cepat dalam hitungan menit, harga terjangkau.", image: "https://images.unsplash.com/photo-1683727027478-5df5f0c89d27?w=600&q=75", badge: "Klinik" },
-];
-
-const certs = [
-  {
-    title: "Surat Tanda Registrasi (STR) Perawat",
-    category: "Legalitas & Lisensi Nasional",
-    issuer: "Konsil Tenaga Kesehatan Indonesia (KTKI) - Kemenkes RI",
-    noReg: "No. Registrasi: 14 01 5 2 1 20-3849102",
-    validity: "Terdaftar Resmi Seumur Hidup",
-    desc: "Bukti tertulis legalitas kompetensi medis perawat yang diakui resmi oleh Kementerian Kesehatan Republik Indonesia untuk seluruh wilayah NKRI.",
-    img: "https://images.unsplash.com/photo-1589330694653-dad6bc0140fa?w=1000&q=85",
-    badge: "Kemenkes RI"
-  },
-  {
-    title: "Surat Izin Praktik Perawat (SIPP)",
-    category: "Izin Praktik Mandiri & Home Care",
-    issuer: "Dinas Kesehatan & DPMPTSP Kota",
-    noReg: "No. Izin: 446/0921/SIPP/DINKES/2022",
-    validity: "Izin Praktik Aktif & Terverifikasi",
-    desc: "Izin operasional legal penyelenggaraan pelayanan asuhan keperawatan mandiri, visit home care, dan tindakan medis di klinik.",
-    img: "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=1000&q=85",
-    badge: "Dinkes Resmi"
-  },
-  {
-    title: "Sertifikat Modern Wound Care (CWCC)",
-    category: "Keahlian Klinis Spesialis",
-    issuer: "Indonesian Wound Care Clinician (InWCCA)",
-    noReg: "No. Sertifikat: WCA-ID/2021/0845-EXP",
-    validity: "Certified Wound Specialist",
-    desc: "Sertifikasi keahlian tata laksana luka modern (luka diabetes/gangren, dekubitus, luka bakar, dan luka pasca-operasi) berstandar steril.",
-    img: "https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?w=1000&q=85",
-    badge: "Spesialis Luka"
-  },
-];
-
 const NAV_LINKS = [
   { href: "#beranda", label: "Beranda" },
   { href: "#layanan", label: "Layanan" },
@@ -127,8 +98,47 @@ export default function PageHome() {
   const [activeNav, setActiveNav] = useState("beranda");
   const [lightbox, setLightbox] = useState<string | null>(null);
 
+  // Dynamic CMS States with fallback
+  const [settings, setSettings] = useState<SiteSettings>(defaultSettings);
+  const [about, setAbout] = useState<AboutData>(defaultAbout);
+  const [services, setServices] = useState<ServiceItem[]>(defaultServices);
+  const [certs, setCerts] = useState<CertificateItem[]>(defaultCertificates);
+  const [testimonials, setTestimonials] = useState<TestimonialItem[]>(defaultTestimonials);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadCms() {
+      try {
+        const [s, a, srv, crt, tst] = await Promise.all([
+          fetchSiteSettings(),
+          fetchAboutData(),
+          fetchServices(),
+          fetchCertificates(),
+          fetchTestimonials(),
+        ]);
+        if (isMounted) {
+          if (s) setSettings(s);
+          if (a) setAbout(a);
+          if (srv && srv.length > 0) setServices(srv);
+          if (crt && crt.length > 0) setCerts(crt);
+          if (tst && tst.length > 0) setTestimonials(tst);
+        }
+      } catch (err) {
+        console.warn("Using default CMS fallback data:", err);
+      }
+    }
+    loadCms();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const cleanWa = (settings.whatsapp || "6281234567890").replace(/\D/g, "");
+  const waLink = (msg: string) =>
+    `https://wa.me/${cleanWa}?text=${encodeURIComponent(msg)}`;
+
   const statPatients = useCountUp(500, 2000);
-  const statYears = useCountUp(3, 1600);
+  const statYears = useCountUp(about.experienceYears || 8, 1600);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,7 +160,6 @@ export default function PageHome() {
 
       {/* ============================================================
           NAVBAR — SATU DESAIN KONSISTEN & ELEGAN
-          Floating frosted glass pill yang konsisten sebelum & sesudah scroll
           ============================================================ */}
       <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
         <nav className="pointer-events-auto w-full max-w-6xl bg-slate-900/85 hover:bg-slate-900/95 backdrop-blur-xl border border-white/15 rounded-2xl shadow-2xl shadow-black/30 px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-300">
@@ -159,11 +168,13 @@ export default function PageHome() {
           <a href="#beranda" className="flex items-center gap-3 shrink-0 group">
             <img
               src="/logo.png"
-              alt="Homecareku Logo"
-              className="w-10 h-10 object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+              alt={`${settings.clinicName} Logo`}
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain drop-shadow-md group-hover:scale-105 transition-transform shrink-0"
             />
             <div className="leading-tight">
-              <span className="block font-extrabold text-[17px] text-white tracking-tight">Homecareku</span>
+              <span className="block font-extrabold text-[17px] text-white tracking-tight">{settings.clinicName}</span>
               <span className="block text-[10px] font-semibold text-teal-300 uppercase tracking-widest">Layanan Medis &amp; Home Care</span>
             </div>
           </a>
@@ -222,29 +233,21 @@ export default function PageHome() {
 
       {/* ============================================================
           HERO SECTION — 1 LAYAR FULL (100vh)
-          Bersih, teks tepat di tengah layar, background foto jernih terlihat
           ============================================================ */}
       <section id="beranda" className="relative h-screen min-h-[640px] flex flex-col justify-between overflow-hidden">
-
-        {/* Background Layers — Foto medis jernih & terlihat jelas (TIDAK BURAM) */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=85"
             alt="Hero Background"
             className="w-full h-full object-cover object-center"
           />
-          {/* Overlay jernih: foto stetoskop & keyboard tetap terlihat jelas dengan kontras yang pas */}
           <div className="absolute inset-0 bg-slate-950/45" />
           <div className="absolute inset-0 bg-gradient-to-b from-blue-950/65 via-transparent to-slate-950/85" />
         </div>
 
-        {/* Spacer atas */}
         <div className="h-20 sm:h-24" />
 
-        {/* Hero Content — PAS DI TENGAH LAYAR */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center my-auto">
-
-          {/* Badge Status */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-xs sm:text-sm font-medium text-cyan-200 mb-6 shadow-md drop-shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -253,7 +256,6 @@ export default function PageHome() {
             <span>Layanan Aktif 7 Hari Seminggu • Home Care &amp; Klinik</span>
           </div>
 
-          {/* Headline Utama */}
           <h1 className="text-4xl sm:text-6xl lg:text-[70px] font-black tracking-tight leading-[1.12] mb-6 max-w-4xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
             <span className="block text-white">Layanan Medis</span>
             <span className="block bg-gradient-to-r from-teal-300 via-cyan-200 to-blue-200 bg-clip-text text-transparent">
@@ -261,12 +263,10 @@ export default function PageHome() {
             </span>
           </h1>
 
-          {/* Deskripsi */}
           <p className="text-base sm:text-lg lg:text-xl text-slate-100 max-w-2xl mx-auto mb-10 leading-relaxed font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Perawat bersertifikat siap melakukan home care langsung ke rumah Anda maupun tindakan di klinik — steril, aman, nyaman, dan penuh empati.
           </p>
 
-          {/* Tombol Aksi */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <a href={waLink("Halo, saya ingin menjadwalkan home care / kunjungan klinik.")}
               target="_blank" rel="noopener noreferrer"
@@ -282,7 +282,6 @@ export default function PageHome() {
           </div>
         </div>
 
-        {/* Indikator Scroll di bagian bawah */}
         <div className="pb-8 relative z-10 flex flex-col items-center justify-center text-white/75 text-xs">
           <span className="tracking-widest uppercase font-medium mb-1.5 drop-shadow">Scroll ke bawah</span>
           <div className="w-5 h-8 border-2 border-white/50 rounded-full flex items-start justify-center p-1 shadow-md">
@@ -292,10 +291,9 @@ export default function PageHome() {
       </section>
 
       {/* ============================================================
-          SECTION STATISTIK & RATING (Tampil setelah di-scroll)
-          Ukurannya proporsional, rapi, dan simetris di tengah
+          SECTION STATISTIK & RATING
           ============================================================ */}
-      <section className="relative z-20 py-12 bg-white border-b border-slate-100">
+      <section className="relative z-20 py-12 bg-white border-b border-slate-100 overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-b from-slate-50 to-blue-50/40 border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 md:divide-x md:divide-slate-200 items-center">
@@ -326,7 +324,7 @@ export default function PageHome() {
                   {statYears.count}+ Tahun
                 </span>
                 <span className="text-sm font-bold text-slate-800 mt-1">Pengalaman Medis</span>
-                <span className="text-xs text-slate-500 mt-0.5">STR &amp; SIPP Resmi Terdaftar</span>
+                <span className="text-xs text-slate-500 mt-0.5">{about.legalBadge || "STR & SIPP Resmi Terdaftar"}</span>
               </div>
 
             </div>
@@ -335,21 +333,20 @@ export default function PageHome() {
       </section>
 
       {/* ============================================================
-          3 KEUNGGULAN SECTION — Bersih, Terang, Elegan, dan Nyaman
+          3 KEUNGGULAN SECTION
           ============================================================ */}
-      <section className="relative z-20 py-16 bg-slate-50 border-b border-slate-200/80">
+      <section className="relative z-20 py-16 bg-slate-50 border-b border-slate-200/80 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="inline-block bg-blue-100 text-blue-700 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-2">
               Keunggulan Layanan
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Mengapa Memilih Homecareku?
+              Mengapa Memilih {settings.clinicName}?
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
               <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 <HomeIcon className="w-7 h-7" />
@@ -363,7 +360,6 @@ export default function PageHome() {
               </p>
             </div>
 
-            {/* Card 2 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
               <div className="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 border border-teal-100 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 <Building2 className="w-7 h-7" />
@@ -377,7 +373,6 @@ export default function PageHome() {
               </p>
             </div>
 
-            {/* Card 3 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
               <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm">
                 <ShieldCheck className="w-7 h-7" />
@@ -395,9 +390,9 @@ export default function PageHome() {
       </section>
 
       {/* ============================================================
-          LAYANAN
+          LAYANAN (Dynamic from Firebase / Default)
           ============================================================ */}
-      <section id="layanan" className="py-24 bg-white">
+      <section id="layanan" className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="inline-block bg-teal-100 text-teal-700 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3">Pilihan Layanan</span>
@@ -406,7 +401,7 @@ export default function PageHome() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {services.map((s, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col group">
+              <div key={s.id || i} className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col group">
                 <div className="relative h-44 overflow-hidden">
                   <img
                     src={s.image}
@@ -436,7 +431,7 @@ export default function PageHome() {
       {/* ============================================================
           TENTANG KAMI: PROFIL TENAGA MEDIS & LEGALITAS TERPISAH
           ============================================================ */}
-      <section id="tentang" className="py-24 bg-slate-50 border-t border-slate-200/80">
+      <section id="tentang" className="py-24 bg-slate-50 border-t border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* BAGIAN 1: PROFIL TENAGA MEDIS (PERAWAT) */}
@@ -451,42 +446,45 @@ export default function PageHome() {
                 {/* Frame Foto Utama */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100">
                   <img
-                    src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=80"
-                    alt="Ns. Sari Dewi, S.Kep - Perawat Penanggung Jawab Homecareku"
+                    src={about.nursePhoto}
+                    alt={`${about.nurseName} - ${about.nurseRole}`}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=80";
+                    }}
                     className="w-full h-[490px] object-cover object-top"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
 
-                  {/* Keterangan Nama di Foto */}
-                  <div className="absolute bottom-5 left-5 right-5 text-white">
+                  {/* Keterangan Nama di Foto - pr-10 agar tidak tertabrak badge */}
+                  <div className="absolute bottom-5 left-5 right-5 pr-10 sm:pr-14 text-white z-10">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/90 text-white text-xs font-bold backdrop-blur-md mb-2 shadow-sm">
                       <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                       Siap Pelayanan Home Care &amp; Klinik
                     </div>
-                    <p className="font-extrabold text-xl tracking-tight">Ns. Sari Dewi, S.Kep</p>
-                    <p className="text-xs text-slate-200">Perawat Penanggung Jawab Klinis</p>
+                    <p className="font-extrabold text-xl tracking-tight leading-tight">{about.nurseName}</p>
+                    <p className="text-xs text-slate-200 mt-0.5">{about.nurseRole}</p>
                   </div>
                 </div>
 
                 {/* Floating Badge 1 - Pengalaman */}
-                <div className="absolute -top-3 -left-3 sm:-left-5 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xl border border-slate-100 hidden sm:flex items-center gap-3">
+                <div className="absolute -top-3 -left-3 sm:-left-5 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-xl border border-slate-100 hidden sm:flex items-center gap-3 z-20">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs font-black text-slate-900">8+ Tahun</p>
+                    <p className="text-xs font-black text-slate-900">{about.experienceYears}+ Tahun</p>
                     <p className="text-[11px] text-slate-500">Pengalaman Medis</p>
                   </div>
                 </div>
 
-                {/* Floating Badge 2 - Legalitas Terdaftar */}
-                <div className="absolute -bottom-5 -right-3 sm:-right-5 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-slate-100 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 border border-teal-100 flex items-center justify-center">
+                {/* Floating Badge 2 - Legalitas Terdaftar: Digeser ke kanan & ke bawah agar tidak menutupi tulisan nama */}
+                <div className="absolute -bottom-9 sm:-bottom-10 -right-4 sm:-right-8 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-2xl border border-slate-100 flex items-center gap-3 z-20">
+                  <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 border border-teal-100 flex items-center justify-center flex-shrink-0">
                     <ShieldCheck className="w-6 h-6" />
                   </div>
                   <div>
                     <p className="text-[10px] text-teal-700 font-bold uppercase tracking-wider">Legalitas Resmi</p>
-                    <p className="font-extrabold text-slate-900 text-sm">STR &amp; SIPP Kemenkes Aktif</p>
+                    <p className="font-extrabold text-slate-900 text-xs sm:text-sm whitespace-nowrap">{about.legalBadge}</p>
                   </div>
                 </div>
               </div>
@@ -498,21 +496,16 @@ export default function PageHome() {
                 <Stethoscope className="w-3.5 h-3.5 text-blue-600" />
                 Tentang Tenaga Medis
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-                Sentuhan Medis Humanis,<br />Hangat &amp; Berpengalaman
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight whitespace-pre-line">
+                {about.headline}
               </h2>
-              <p className="text-slate-600 leading-relaxed mb-6 text-sm sm:text-base">
-                Halo, saya <strong>Ns. Sari Dewi, S.Kep</strong> — perawat berlisensi resmi dengan pengalaman lebih dari 8 tahun dalam keperawatan klinis dan komunitas. <strong>Homecareku</strong> hadir dengan dedikasi memberikan pelayanan medis berstandar rumah sakit yang aman, privat, dan penuh empati langsung di kenyamanan rumah pasien maupun fasilitas klinik kami.
+              <p className="text-slate-600 leading-relaxed mb-6 text-sm sm:text-base whitespace-pre-line">
+                {about.bio}
               </p>
 
               {/* 4 Pilar Kualifikasi */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                {[
-                  { title: "Profesi Ners", desc: "Lulusan Ners dari universitas terkemuka dengan predikat memuaskan" },
-                  { title: "Sertifikasi Wound Care", desc: "Tersertifikasi Modern Wound Care (InWCCA), BHD & Phlebotomy" },
-                  { title: "5+ Tahun RS Rujukan", desc: "Pengalaman penanganan rawat inap, luka akut & kronis di RS provinsi" },
-                  { title: "Standar Sterilisasi Kemenkes", desc: "Protokol aseptik ketat dan instrumen medis sekali pakai higienis" },
-                ].map((item, idx) => (
+                {about.checklist.map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm hover:border-teal-300 transition-colors">
                     <CheckCircle2 className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
                     <div>
@@ -525,12 +518,12 @@ export default function PageHome() {
 
               {/* Quote Filosofi Pelayanan */}
               <blockquote className="border-l-4 border-teal-500 pl-4 py-2.5 bg-gradient-to-r from-teal-50 to-blue-50/40 rounded-r-2xl text-slate-700 italic text-sm leading-relaxed mb-6">
-                &ldquo;Setiap pasien adalah prioritas kami. Kami hadir bukan hanya untuk melakukan tindakan fisik, melainkan mendampingi proses kesembuhan dengan ketulusan dan ketenangan bagi keluarga.&rdquo;
+                &ldquo;{about.quote}&rdquo;
               </blockquote>
 
               {/* Tombol Konsultasi Langsung */}
               <div>
-                <a href={waLink("Halo Ns. Sari Dewi, saya ingin konsultasi mengenai kondisi pasien dan layanan home care.")}
+                <a href={waLink(`Halo ${about.nurseName}, saya ingin konsultasi mengenai kondisi pasien dan layanan home care.`)}
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold px-6 py-3.5 rounded-full text-sm shadow-lg shadow-teal-700/20 hover:-translate-y-0.5 transition-all">
                   <Phone className="w-4 h-4" />
@@ -542,10 +535,8 @@ export default function PageHome() {
 
           {/* ============================================================
               BAGIAN 2: SECTION TERPISAH LEGALITAS & SERTIFIKASI RESMI
-              Tampil penuh, eksklusif, dan profesional
               ============================================================ */}
           <div className="mt-24 pt-16 border-t border-slate-200">
-            {/* Header Bagian Legalitas */}
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="inline-flex items-center gap-1.5 bg-teal-100 text-teal-800 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3 border border-teal-200">
                 <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
@@ -559,11 +550,10 @@ export default function PageHome() {
               </p>
             </div>
 
-            {/* Grid 3 Kartu Sertifikat Resmi */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               {certs.map((c, i) => (
                 <div
-                  key={i}
+                  key={c.id || i}
                   onClick={() => setLightbox(c.img)}
                   className="group relative bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col cursor-pointer"
                 >
@@ -578,11 +568,14 @@ export default function PageHome() {
                     </span>
                   </div>
 
-                  {/* Visual Preview Dokumen dengan Zoom Hover */}
+                  {/* Visual Preview Dokumen */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
                     <img
                       src={c.img}
                       alt={c.title}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1589330694653-dad6bc0140fa?w=1000&q=85";
+                      }}
                       className="w-full h-full object-cover object-center group-hover:scale-105 group-hover:opacity-90 transition-all duration-500"
                     />
                     <div className="absolute inset-0 bg-blue-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 p-4 text-white">
@@ -619,18 +612,24 @@ export default function PageHome() {
         </div>
       </section>
 
-      {/* ============================================================ TESTIMONI ============================================================ */}
+      {/* ============================================================
+          TESTIMONI (Dynamic from Firebase / Default)
+          ============================================================ */}
       <section id="galeri" className="py-24 bg-white overflow-hidden border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
-          <span className="inline-flex items-center gap-1.5 bg-teal-100 text-teal-700 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3"><Sparkles className="w-3.5 h-3.5" /> Ulasan Pasien</span>
+          <span className="inline-flex items-center gap-1.5 bg-teal-100 text-teal-700 font-semibold text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3">
+            <Sparkles className="w-3.5 h-3.5" /> Ulasan Pasien
+          </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Kepercayaan Pasien adalah Kebanggaan Kami</h2>
           <p className="text-slate-500 mt-2 max-w-xl mx-auto text-sm sm:text-base">Ulasan nyata dari keluarga dan pasien yang telah mempercayakan layanan kesehatan kepada kami.</p>
         </div>
-        <TestimonialMarquee />
+        <TestimonialMarquee items={testimonials} />
       </section>
 
-      {/* ============================================================ LOKASI ============================================================ */}
-      <section id="lokasi" className="py-24 bg-slate-50 border-t border-slate-200/80">
+      {/* ============================================================
+          LOKASI & JAM OPERASIONAL
+          ============================================================ */}
+      <section id="lokasi" className="py-24 bg-slate-50 border-t border-slate-200/80 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -640,9 +639,24 @@ export default function PageHome() {
               </div>
               <div className="space-y-5">
                 {[
-                  { icon: <MapPin className="w-5 h-5"/>, color:"bg-blue-50 text-blue-600 border-blue-100", title:"Alamat Lengkap", content:"Jl. Kesehatan No. 123, Kel. Sejahtera, Kec. Makmur, Kota Sehat 12345" },
-                  { icon: <Clock className="w-5 h-5"/>, color:"bg-teal-50 text-teal-600 border-teal-100", title:"Jam Pelayanan", content:"Klinik: Senin–Sabtu 08.00–20.00 WIB\nHome Care: Siaga setiap hari sesuai reservasi WA" },
-                  { icon: <Phone className="w-5 h-5"/>, color:"bg-indigo-50 text-indigo-600 border-indigo-100", title:"WhatsApp", content:"+62 812-3456-7890" },
+                  {
+                    icon: <MapPin className="w-5 h-5"/>,
+                    color: "bg-blue-50 text-blue-600 border-blue-100",
+                    title: "Alamat Lengkap",
+                    content: settings.address || "Jl. Kesehatan No. 123, Kel. Sejahtera, Kec. Makmur, Kota Sehat 12345"
+                  },
+                  {
+                    icon: <Clock className="w-5 h-5"/>,
+                    color: "bg-teal-50 text-teal-600 border-teal-100",
+                    title: "Jam Pelayanan",
+                    content: `Klinik: ${settings.openingHours?.weekdays || "Senin–Sabtu 08.00–20.00 WIB"}\nWeekend: ${settings.openingHours?.weekends || "08.00–18.00 WIB"}\nHome Care: ${settings.openingHours?.homeCare || "Siaga 24 Jam (Reservasi WA)"}`
+                  },
+                  {
+                    icon: <Phone className="w-5 h-5"/>,
+                    color: "bg-indigo-50 text-indigo-600 border-indigo-100",
+                    title: "WhatsApp & Konsultasi",
+                    content: settings.whatsapp || "+62 812-3456-7890"
+                  },
                 ].map(({icon, color, title, content}) => (
                   <div key={title} className="flex items-start gap-4">
                     <div className={`p-3 rounded-xl flex-shrink-0 border ${color}`}>{icon}</div>
@@ -653,8 +667,8 @@ export default function PageHome() {
                   </div>
                 ))}
               </div>
-              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all hover:-translate-y-0.5">
+              <a href={settings.mapsUrl || "https://maps.google.com"} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all hover:-translate-y-0.5 shadow-md">
                 Buka Petunjuk Arah di Maps <ExternalLink className="w-4 h-4" />
               </a>
             </div>
@@ -667,8 +681,10 @@ export default function PageHome() {
         </div>
       </section>
 
-      {/* ============================================================ FOOTER ============================================================ */}
-      <HoverFooter />
+      {/* ============================================================
+          FOOTER (Dynamic with Settings & Animated KUDUS text)
+          ============================================================ */}
+      <HoverFooter settings={settings} />
 
       {/* Floating WA */}
       <a href={waLink("Halo Homecareku, saya ingin konsultasi layanan.")} target="_blank" rel="noopener noreferrer"
@@ -708,7 +724,7 @@ export default function PageHome() {
               />
             </div>
             <div className="px-6 py-3 bg-slate-950 text-center text-xs text-slate-400 border-t border-white/5">
-              Dokumen tersimpan dan terverifikasi secara sah dalam database kepegawaian Homecareku.
+              Dokumen tersimpan dan terverifikasi secara sah dalam database kepegawaian {settings.clinicName}.
             </div>
           </div>
         </div>

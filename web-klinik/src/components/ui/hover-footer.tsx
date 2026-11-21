@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
   ShieldCheck,
 } from "lucide-react";
+import { SiteSettings, defaultSettings } from "@/lib/default-data";
 
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -169,8 +170,9 @@ export const FooterBackgroundGradient = () => {
   );
 };
 
-export function HoverFooter() {
-  const WA_NUMBER = "6281234567890";
+export function HoverFooter({ settings = defaultSettings }: { settings?: SiteSettings }) {
+  const currentSettings = settings || defaultSettings;
+  const WA_NUMBER = currentSettings.whatsapp || "6281234567890";
   const waLink = (msg: string) =>
     `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
@@ -186,9 +188,9 @@ export function HoverFooter() {
 
   // Jam Operasional
   const openingHours = [
-    { days: "Senin – Jumat", hours: "08.00 – 20.00 WIB", note: "Klinik & Home Care" },
-    { days: "Sabtu – Minggu", hours: "08.00 – 18.00 WIB", note: "Tindakan Terjadwal" },
-    { days: "Home Care Visit", hours: "Siaga 24 Jam", note: "Reservasi via WA", highlight: true },
+    { days: "Senin – Jumat", hours: currentSettings.openingHours?.weekdays || "08.00 – 20.00 WIB", note: "Klinik & Home Care" },
+    { days: "Sabtu – Minggu", hours: currentSettings.openingHours?.weekends || "08.00 – 18.00 WIB", note: "Tindakan Terjadwal" },
+    { days: "Home Care Visit", hours: currentSettings.openingHours?.homeCare || "Siaga 24 Jam", note: "Reservasi via WA", highlight: true },
   ];
 
   // Kontak Info
@@ -196,44 +198,51 @@ export function HoverFooter() {
     {
       icon: <Mail size={18} className="text-teal-400 flex-shrink-0" />,
       label: "Email",
-      text: "info@homecareku.com",
-      href: "mailto:info@homecareku.com",
+      text: currentSettings.email || "info@homecareku.com",
+      href: `mailto:${currentSettings.email || "info@homecareku.com"}`,
     },
     {
       icon: <Phone size={18} className="text-teal-400 flex-shrink-0" />,
       label: "WhatsApp / Telp",
-      text: "+62 812-3456-7890",
+      text: `+${WA_NUMBER}`,
       href: waLink("Halo Homecareku, saya ingin bertanya seputar layanan medis."),
     },
     {
       icon: <MapPin size={18} className="text-teal-400 flex-shrink-0" />,
       label: "Alamat Klinik",
-      text: "Jl. Kesehatan No. 123, Kel. Sejahtera, Kec. Makmur, Kota Sehat 12345",
-      href: "https://maps.google.com",
+      text: currentSettings.address || "Jl. Kesehatan No. 123, Kel. Sejahtera, Kec. Makmur, Kota Sehat 12345",
+      href: currentSettings.mapsUrl || "https://maps.google.com",
     },
   ];
 
   // Social Links
+  const hasFb = Boolean(currentSettings.socialLinks?.facebook && currentSettings.socialLinks.facebook.trim() !== "" && currentSettings.socialLinks.facebook !== "#");
+  const hasIg = Boolean(currentSettings.socialLinks?.instagram && currentSettings.socialLinks.instagram.trim() !== "" && currentSettings.socialLinks.instagram !== "#");
+
   const socialLinks = [
     {
       icon: <Phone size={18} />,
       label: "WhatsApp",
       href: waLink("Halo Homecareku, saya ingin konsultasi layanan medis."),
+      active: true,
     },
     {
       icon: <InstagramIcon size={18} />,
       label: "Instagram",
-      href: "https://instagram.com",
+      href: hasIg ? currentSettings.socialLinks.instagram : undefined,
+      active: hasIg,
     },
     {
       icon: <FacebookIcon size={18} />,
       label: "Facebook",
-      href: "https://facebook.com",
+      href: hasFb ? currentSettings.socialLinks.facebook : undefined,
+      active: hasFb,
     },
     {
       icon: <Globe size={18} />,
       label: "Website",
       href: "#beranda",
+      active: true,
     },
   ];
 
@@ -248,7 +257,9 @@ export function HoverFooter() {
               <img
                 src="/logo.png"
                 alt="Logo Homecareku"
-                className="w-10 h-10 object-contain drop-shadow"
+                width={40}
+                height={40}
+                className="w-10 h-10 object-contain drop-shadow shrink-0"
               />
               <span className="text-white text-2xl font-black tracking-tight">
                 Homecareku
@@ -356,18 +367,28 @@ export function HoverFooter() {
         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 space-y-4 md:space-y-0 relative z-30">
           {/* Social Icons */}
           <div className="flex space-x-4">
-            {socialLinks.map(({ icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-teal-300 hover:border-teal-500/40 transition-all hover:-translate-y-0.5"
-              >
-                {icon}
-              </a>
-            ))}
+            {socialLinks.map(({ icon, label, href, active }) =>
+              active && href ? (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-teal-300 hover:border-teal-500/40 transition-all hover:-translate-y-0.5"
+                >
+                  {icon}
+                </a>
+              ) : (
+                <span
+                  key={label}
+                  title={`${label} belum ditambahkan di admin`}
+                  className="w-8 h-8 rounded-full bg-slate-900/40 border border-slate-800/40 flex items-center justify-center text-slate-600 opacity-40 cursor-not-allowed"
+                >
+                  {icon}
+                </span>
+              )
+            )}
           </div>
 
           {/* Copyright */}

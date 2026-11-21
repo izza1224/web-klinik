@@ -28,11 +28,15 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+  background-color: #020617;
 }
 
 body {
-  background-color: #ffffff;
+  overscroll-behavior-y: none;
+  background-color: #020617;
   color: #1e293b;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
