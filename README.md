@@ -92,7 +92,7 @@ Edit bagian berikut di `index.html` sesuai data klinik Anda:
 https://wa.me/6281234567890
 
 <!-- Nama klinik -->
-Klinik Sehat Mandiri
+Klinik homecare
 
 <!-- Nama perawat -->
 Bisyri Musthofa, S.Kep
@@ -123,3 +123,9 @@ Dibuat khusus untuk **Klinik homecare**. Hak cipta dilindungi © 2024.
 ---
 
 > 💬 **Kontak:** Untuk pertanyaan layanan, hubungi kami via WhatsApp di nomor yang tertera pada website.
+
+
+## 👤 Pengembang & Kepemilikan
+
+- **Owner:** [izza1224](https://github.com/izza1224)
+- **Proyek:** Homecareku Medical Clinic & Home Care
