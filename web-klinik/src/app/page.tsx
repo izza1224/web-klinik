@@ -27,6 +27,8 @@ import {
   ServiceItem,
   CertificateItem,
   TestimonialItem,
+  getMapEmbedUrl,
+  getMapDirectLink,
 } from "@/lib/default-data";
 
 /* ---- Animated Counter Hook (smooth 0 -> target) ---- */
@@ -438,7 +440,7 @@ export default function PageHome() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Kolom Kiri: Foto Perawat & Badges Visual (5 cols) */}
-            <div className="lg:col-span-5 relative flex justify-center">
+            <div className="lg:col-span-5 relative flex justify-center pb-12 sm:pb-14 lg:pb-8">
               <div className="relative w-full max-w-md">
                 {/* Decorative Aura Glow */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-teal-500/20 via-blue-500/15 to-transparent rounded-[2.5rem] filter blur-2xl -z-10" />
@@ -453,16 +455,16 @@ export default function PageHome() {
                     }}
                     className="w-full h-[490px] object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
 
-                  {/* Keterangan Nama di Foto - pr-10 agar tidak tertabrak badge */}
-                  <div className="absolute bottom-5 left-5 right-5 pr-10 sm:pr-14 text-white z-10">
+                  {/* Keterangan Nama di Foto */}
+                  <div className="absolute bottom-6 left-5 right-5 text-white z-10 max-w-[75%] sm:max-w-[70%]">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/90 text-white text-xs font-bold backdrop-blur-md mb-2 shadow-sm">
                       <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                       Siap Pelayanan Home Care &amp; Klinik
                     </div>
                     <p className="font-extrabold text-xl tracking-tight leading-tight">{about.nurseName}</p>
-                    <p className="text-xs text-slate-200 mt-0.5">{about.nurseRole}</p>
+                    <p className="text-xs text-slate-200 mt-1 leading-snug">{about.nurseRole}</p>
                   </div>
                 </div>
 
@@ -477,8 +479,8 @@ export default function PageHome() {
                   </div>
                 </div>
 
-                {/* Floating Badge 2 - Legalitas Terdaftar: Digeser ke kanan & ke bawah agar tidak menutupi tulisan nama */}
-                <div className="absolute -bottom-9 sm:-bottom-10 -right-4 sm:-right-8 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-2xl border border-slate-100 flex items-center gap-3 z-20">
+                {/* Floating Badge 2 - Legalitas Terdaftar: Diturunkan lebih ke bawah agar teks perawat terbaca jelas */}
+                <div className="absolute -bottom-12 sm:-bottom-14 -right-2 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 shadow-2xl border border-slate-100 flex items-center gap-3 z-20">
                   <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 border border-teal-100 flex items-center justify-center flex-shrink-0">
                     <ShieldCheck className="w-6 h-6" />
                   </div>
@@ -667,14 +669,14 @@ export default function PageHome() {
                   </div>
                 ))}
               </div>
-              <a href={settings.mapsUrl || "https://maps.google.com"} target="_blank" rel="noopener noreferrer"
+              <a href={getMapDirectLink(settings.mapsUrl, settings.address)} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all hover:-translate-y-0.5 shadow-md">
                 Buka Petunjuk Arah di Maps <ExternalLink className="w-4 h-4" />
               </a>
             </div>
             <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200 h-[400px]">
               <iframe title="Lokasi Klinik"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126748.59609823898!2d106.7765!3d-6.2297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Indonesia!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                src={getMapEmbedUrl(settings.mapsUrl, settings.mapsEmbed, settings.address)}
                 className="w-full h-full border-0" loading="lazy" />
             </div>
           </div>

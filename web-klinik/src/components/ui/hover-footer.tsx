@@ -11,7 +11,7 @@ import {
   ArrowUpRight,
   ShieldCheck,
 } from "lucide-react";
-import { SiteSettings, defaultSettings } from "@/lib/default-data";
+import { SiteSettings, defaultSettings, getMapDirectLink } from "@/lib/default-data";
 
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -211,7 +211,7 @@ export function HoverFooter({ settings = defaultSettings }: { settings?: SiteSet
       icon: <MapPin size={18} className="text-teal-400 flex-shrink-0" />,
       label: "Alamat Klinik",
       text: currentSettings.address || "Jl. Kesehatan No. 123, Kel. Sejahtera, Kec. Makmur, Kota Sehat 12345",
-      href: currentSettings.mapsUrl || "https://maps.google.com",
+      href: getMapDirectLink(currentSettings.mapsUrl, currentSettings.address),
     },
   ];
 

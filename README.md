@@ -95,7 +95,7 @@ https://wa.me/6281234567890
 Klinik Sehat Mandiri
 
 <!-- Nama perawat -->
-Ns. Sari Dewi, S.Kep
+Bisyri Musthofa, S.Kep
 
 <!-- Alamat -->
 Jl. Kesehatan No. 123, Kota Sehat 12345
