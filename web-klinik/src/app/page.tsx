@@ -123,7 +123,17 @@ export default function PageHome() {
           if (a) setAbout(a);
           if (srv && srv.length > 0) setServices(srv);
           if (crt && crt.length > 0) setCerts(crt);
-          if (tst && tst.length > 0) setTestimonials(tst);
+          if (tst && tst.length > 0) {
+            if (tst.length < defaultTestimonials.length) {
+              const existingNames = new Set(tst.map((item) => item.name.toLowerCase()));
+              const additions = defaultTestimonials.filter(
+                (item) => !existingNames.has(item.name.toLowerCase())
+              );
+              setTestimonials([...tst, ...additions]);
+            } else {
+              setTestimonials(tst);
+            }
+          }
         }
       } catch (err) {
         console.warn("Using default CMS fallback data:", err);

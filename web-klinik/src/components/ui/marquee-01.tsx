@@ -14,59 +14,106 @@ export interface MarqueeReviewItem {
   profile?: string;
 }
 
+const PALETTES = [
+  { bg: "2563eb", badge: "bg-blue-50 text-blue-700 border-blue-200", gradient: "from-blue-600 to-indigo-600" },
+  { bg: "e11d48", badge: "bg-rose-50 text-rose-700 border-rose-200", gradient: "from-rose-500 to-pink-600" },
+  { bg: "7c3aed", badge: "bg-purple-50 text-purple-700 border-purple-200", gradient: "from-purple-600 to-indigo-600" },
+  { bg: "d97706", badge: "bg-amber-50 text-amber-800 border-amber-200", gradient: "from-amber-500 to-orange-600" },
+  { bg: "059669", badge: "bg-emerald-50 text-emerald-700 border-emerald-200", gradient: "from-emerald-500 to-teal-600" },
+  { bg: "0284c7", badge: "bg-sky-50 text-sky-700 border-sky-200", gradient: "from-sky-500 to-blue-600" },
+  { bg: "ea580c", badge: "bg-orange-50 text-orange-700 border-orange-200", gradient: "from-orange-500 to-red-500" },
+  { bg: "0891b2", badge: "bg-cyan-50 text-cyan-700 border-cyan-200", gradient: "from-cyan-500 to-teal-600" },
+  { bg: "c026d3", badge: "bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200", gradient: "from-fuchsia-500 to-purple-600" },
+  { bg: "4f46e5", badge: "bg-indigo-50 text-indigo-700 border-indigo-200", gradient: "from-indigo-600 to-violet-600" },
+];
+
+function getPalette(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % PALETTES.length;
+  return PALETTES[index];
+}
+
+function getInitials(name: string) {
+  const clean = name.replace(/^(Bpk\.|Ibu|dr\.|Ns\.|H\.|Hj\.)\s*/i, "").trim();
+  const parts = clean.split(/\s+/);
+  if (parts.length >= 2 && parts[0] && parts[1]) {
+    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  }
+  return (clean.slice(0, 2) || "PS").toUpperCase();
+}
+
 const defaultReviews: MarqueeReviewItem[] = [
   {
-    name: "Budi Hartono",
-    username: "@budihartono",
-    role: "Keluarga Pasien Diabetes",
+    name: "Ibu Ratna Dewi",
+    role: "Keluarga Pasien Stroke",
+    service: "Home Care & Perawatan Infus",
+    body: "Perawatnya ramah sekali, datang tepat waktu ke rumah dan penanganan infusnya rapi tanpa rasa sakit. Sangat membantu keluarga kami yang kesulitan membawa orang tua ke klinik.",
+    rating: 5,
+  },
+  {
+    name: "Bpk. Hendra Gunawan",
+    role: "Pasien Pasca Operasi",
     service: "Modern Wound Care",
-    body: "“Alhamdulillah luka diabetes ayah saya yang susah sembuh, dalam 2 minggu perawatan rutin oleh Ns. Sari kondisinya membaik pesat. Perawatnya sabar dan telaten sekali!”",
-    profile: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+    body: "Luka pasca operasi cepat kering dan bersih berkat perawatan steril dari Homecareku. Dijelaskan juga cara perawatan sehari-harinya dengan sangat jelas.",
     rating: 5,
   },
   {
-    name: "Ratna Agustina",
-    username: "@ratna_agustina",
-    role: "Ibu Pasien Khitan",
-    service: "Khitan Modern",
-    body: "“Anak saya khitan metode modern di sini, prosesnya cepat dan minim nyeri. Ruangan bersih dan steril. Pasca khitan juga dikontrol secara berkala, sangat puas!”",
-    profile: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80",
+    name: "Bpk. Ahmad Fauzi",
+    role: "Orang Tua Pasien Khitan",
+    service: "Khitan Modern Klem",
+    body: "Anak saya khitan di klinik, prosesnya sangat cepat dan anak tidak rewel sama sekali. Hari kedua sudah bisa beraktivitas seperti biasa. Mantap!",
     rating: 5,
   },
   {
-    name: "Dian Susanti",
-    username: "@diansusanti",
-    role: "Keluarga Pasien Home Visit",
-    service: "Pemasangan Infus",
-    body: "“Minta home visit pemasangan infus ibu saya yang tidak bisa keluar rumah. Perawat datang tepat waktu, SOP steril ketat, ramah dan sangat komunikatif.”",
-    profile: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80",
+    name: "Ibu Siti Mariam",
+    role: "Pasien Rutin Cek Lab",
+    service: "Cek Lab Mini & Terapi Bekam",
+    body: "Hasil cek gula darah dan kolesterol langsung keluar di tempat. Dilanjut terapi bekam badannya jadi enteng banget. Sangat recommended!",
     rating: 5,
   },
   {
-    name: "Hendra Wijaya",
-    username: "@hendrawijaya",
+    name: "Bpk. Bambang Sutrisno",
+    role: "Keluarga Pasien Diabetes",
+    service: "Rawat Luka Diabetes (Gangren)",
+    body: "Luka diabetes di kaki bapak mertua yang tadinya memburuk, alhamdulillah sekarang menutup setelah rutin dirawat home care. Teknik balut luka modern-nya sangat higienis dan tidak bau.",
+    rating: 5,
+  },
+  {
+    name: "Ibu Nurul Hidayah",
+    role: "Ibu Pasca Caesar (Maternity)",
+    service: "Perawatan Luka Caesar",
+    body: "Layanan ganti perban luka SC langsung ke rumah sangat menolong saya yang masih nyeri jalan. Nakesnya teliti, telaten, dan selalu memberi edukasi tentang tanda infeksi.",
+    rating: 5,
+  },
+  {
+    name: "Bpk. Eko Prasetyo",
     role: "Keluarga Pasien Lansia",
-    service: "Pemasangan NGT",
-    body: "“Pemasangan NGT untuk kakek berjalan sangat lancar dan hati-hati. Dikasih panduan cara pemberian makan via selang juga dengan detail. Terima kasih banyak!”",
-    profile: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
+    service: "Pemasangan NGT & Kateter",
+    body: "Ibu saya yang tirah baring butuh ganti selang NGT dan kateter urine rutin. Pelayanannya cepat tanggap, sangat berhati-hati, dan selalu sabar memotivasi pasien.",
     rating: 5,
   },
   {
-    name: "Siti Rahmawati",
-    username: "@siti_rahma",
-    role: "Pasien Rutin",
-    service: "Terapi Bekam",
-    body: "“Terapi bekam dan inframerah di klinik ini bikin badan enteng. Terapis bersertifikat dan alatnya steril sekali pakai. Pasti langganan terus tiap bulan.”",
-    profile: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&q=80",
+    name: "Ibu Sri Wahyuni",
+    role: "Pasien Pemulihan Pasca Sakit",
+    service: "Suntik Vitamin & Infus Booster",
+    body: "Panggil layanan infus multivitamin dan suntik neurobion ke rumah saat badan drop. Nakesnya profesional, tusukan jarumnya halus sekali tidak sakit. Badan langsung fit kembali.",
     rating: 5,
   },
   {
-    name: "Ahmad Fauzi",
-    username: "@ahmadfauzi",
-    role: "Pasien Checkup",
-    service: "Cek Lab Mini",
-    body: "“Cek lab mini hasilnya langsung keluar dalam hitungan menit dan harganya sangat bersahabat. Penjelasan hasil dari perawat juga sangat mudah dipahami.”",
-    profile: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&q=80",
+    name: "Bpk. Tri Wahyudi",
+    role: "Keluarga Pasien Home Visit",
+    service: "Fisioterapi & Latihan Gerak",
+    body: "Latihan gerak mandiri pasca stroke di rumah sangat memuaskan. Terapisnya telaten membimbing dari yang awalnya cuma bisa berbaring sampai sekarang bisa duduk tegak sendiri.",
+    rating: 5,
+  },
+  {
+    name: "Ibu Maya Kartika",
+    role: "Pasien Penanganan Luka Bakar",
+    service: "Perawatan Luka Bakar",
+    body: "Tangan melepuh terkena minyak panas, langsung chat WA dan ditangani dengan cepat. Diberikan salep dan penutup luka modern sehingga sembuh tanpa bekas keloid.",
     rating: 5,
   },
 ];
@@ -80,36 +127,49 @@ const ReviewCard = ({
   body,
   rating = 5,
 }: MarqueeReviewItem) => {
+  const palette = getPalette(name);
+  const initials = getInitials(name);
+  const cleanName = name.replace(/^(Bpk\.|Ibu|dr\.|Ns\.|H\.|Hj\.)\s*/i, "").trim();
   const avatarUrl =
     profile ||
     `https://ui-avatars.com/api/?name=${encodeURIComponent(
-      name
-    )}&background=0d9488&color=fff&size=150`;
+      cleanName
+    )}&background=${palette.bg}&color=fff&size=150&bold=true`;
 
   return (
-    <Card className="relative h-full w-80 cursor-pointer overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow p-5 rounded-2xl mx-1.5 flex flex-col justify-between">
+    <Card className="relative h-full w-84 cursor-pointer overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow p-5 rounded-2xl mx-2 flex flex-col justify-between">
       <CardContent className="p-0 flex flex-col gap-3">
-        <div className="flex flex-row items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img
-              className="rounded-full object-cover border border-slate-200"
-              width="40"
-              height="40"
-              style={{ width: 40, height: 40 }}
-              alt={name}
-              src={avatarUrl}
-            />
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-slate-900 leading-tight">
+        <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-3 min-w-0">
+            {profile ? (
+              <img
+                className="rounded-full object-cover border-2 border-white shadow-sm flex-shrink-0"
+                width="40"
+                height="40"
+                style={{ width: 40, height: 40 }}
+                alt={name}
+                src={avatarUrl}
+              />
+            ) : (
+              <div
+                className={`w-10 h-10 rounded-full bg-gradient-to-tr ${palette.gradient} text-white font-extrabold text-xs flex items-center justify-center shadow-sm flex-shrink-0 border-2 border-white tracking-wider`}
+              >
+                {initials}
+              </div>
+            )}
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-bold text-slate-900 leading-tight truncate">
                 {name}
               </span>
-              <span className="text-xs text-slate-500 font-medium">
+              <span className="text-xs text-slate-500 font-medium truncate">
                 {role || username || "Pasien Homecareku"}
               </span>
             </div>
           </div>
           {service && (
-            <span className="text-[10px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
+            <span
+              className={`text-[10px] font-bold ${palette.badge} px-2.5 py-0.5 rounded-full border whitespace-nowrap flex-shrink-0`}
+            >
               {service}
             </span>
           )}
@@ -130,7 +190,7 @@ const ReviewCard = ({
         </div>
 
         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
-          {body || "Pelayanan medis sangat profesional dan memuaskan."}
+          &ldquo;{body || "Pelayanan medis sangat profesional dan memuaskan."}&rdquo;
         </p>
       </CardContent>
     </Card>
