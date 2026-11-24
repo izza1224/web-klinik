@@ -149,8 +149,19 @@ export default function PageHome() {
   const waLink = (msg: string) =>
     `https://wa.me/${cleanWa}?text=${encodeURIComponent(msg)}`;
 
-  const statPatients = useCountUp(500, 2000);
-  const statYears = useCountUp(about.experienceYears || 8, 1600);
+  const targetPatients = Number(about.patientCount) || 500;
+  const targetYears = Number(about.experienceYears) || 4;
+  const statPatients = useCountUp(targetPatients, 2000);
+  const statYears = useCountUp(targetYears, 1600);
+
+  // Akumulasi Rating Otomatis Realtime seperti Shopee
+  const totalReviews = testimonials.length;
+  const avgRating =
+    totalReviews > 0
+      ? testimonials.reduce((acc, curr) => acc + (Number(curr.rating) || 5), 0) /
+        totalReviews
+      : 5.0;
+  const formattedRating = (Math.round(avgRating * 10) / 10).toFixed(1);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -310,30 +321,41 @@ export default function PageHome() {
           <div className="bg-gradient-to-b from-slate-50 to-blue-50/40 border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 md:divide-x md:divide-slate-200 items-center">
               
-              {/* Stat 1: Pasien Dilayani */}
+              {/* Stat 1: Pasien Dilayani (Diatur dari Admin) */}
               <div ref={statPatients.ref} className="flex flex-col items-center justify-center text-center px-4">
                 <span className="text-3xl sm:text-4xl font-black text-blue-950 tabular-nums tracking-tight">
-                  {statPatients.count}+
+                  {statPatients.count > 0 ? statPatients.count : targetPatients}+
                 </span>
                 <span className="text-sm font-bold text-slate-800 mt-1">Pasien Dilayani</span>
                 <span className="text-xs text-slate-500 mt-0.5">Tindakan Medis di Rumah &amp; Klinik</span>
               </div>
 
-              {/* Stat 2: Rating Kepuasan */}
+              {/* Stat 2: Rating Kepuasan (Akumulasi Otomatis dari Testimoni seperti Shopee) */}
               <div className="flex flex-col items-center justify-center text-center px-4">
                 <div className="flex items-center justify-center gap-1 mb-1">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400 drop-shadow-sm" />
+                    <Star
+                      key={s}
+                      className={`w-5 h-5 drop-shadow-sm ${
+                        s <= Math.round(avgRating)
+                          ? "fill-amber-400 text-amber-400"
+                          : "fill-slate-200 text-slate-300"
+                      }`}
+                    />
                   ))}
                 </div>
-                <span className="text-sm font-bold text-slate-800">5.0 / 5.0 Rating Kepuasan</span>
-                <span className="text-xs text-slate-500 mt-0.5">Ulasan Nyata Pasien &amp; Keluarga</span>
+                <span className="text-sm font-bold text-slate-800">
+                  {formattedRating} / 5.0 Rating Kepuasan
+                </span>
+                <span className="text-xs text-slate-500 mt-0.5">
+                  Dari {totalReviews} Ulasan Pasien &amp; Keluarga
+                </span>
               </div>
 
-              {/* Stat 3: Pengalaman */}
+              {/* Stat 3: Pengalaman (Diatur dari Admin) */}
               <div ref={statYears.ref} className="flex flex-col items-center justify-center text-center px-4">
                 <span className="text-3xl sm:text-4xl font-black text-blue-950 tabular-nums tracking-tight">
-                  {statYears.count}+ Tahun
+                  {statYears.count > 0 ? statYears.count : targetYears}+ Tahun
                 </span>
                 <span className="text-sm font-bold text-slate-800 mt-1">Pengalaman Medis</span>
                 <span className="text-xs text-slate-500 mt-0.5">{about.legalBadge || "STR & SIPP Resmi Terdaftar"}</span>
